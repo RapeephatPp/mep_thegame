@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -5,12 +6,12 @@ public enum GameState
 {
     Running,
     Paused,
-    Upgrading,
+    CardSelection,
     GameOver
 }
 
 public class GameManager : MonoBehaviour
-{
+{  
     public static GameManager Instance { get; private set; }
 
     [Header("Base Settings")]
@@ -26,16 +27,64 @@ public class GameManager : MonoBehaviour
    
     private int currentWave = 0;
     private int aliveEnemies = 0;
-    private bool waitingForUpgrade = false;
     
     public GameState CurrentGameState { get; private set; } = GameState.Running;
     public BaseController BaseCtrl => baseCtrl;
-
+    
+    int currentLevel = 0;
+    public event Action<GameState> OnStateChanged;
     void Awake()
     {
         Instance = this;
+        
+        if(GameManager.Instance != null)
+            GameManager.Instance.OnStateChanged += HandleGameStateChanged;
     }
 
+    void OnDisable()
+    {
+        if(GameManager.Instance != null)
+            GameManager.Instance.OnStateChanged -= HandleGameStateChanged;
+    }
+    
+    private void HandleGameStateChanged(GameState state)
+    {
+        if (state == GameState.CardSelection)
+        {
+            CardManager.Instance.RandomizeNewCards();
+        }
+    }
+    
+    
+    public int GetCurrentLevel()
+    {
+        return currentLevel; 
+    }
+
+    public void ChangeGameStage(GameState newGameState)
+    {
+        CurrentGameState = newGameState;
+        OnStateChanged?.Invoke(newGameState);
+        HandleStateChanged();
+    }
+
+    private void HandleStateChanged()
+    {
+        switch (CurrentGameState)
+        {
+            case GameState.Running:
+                CardManager.Instance.HideCardSelection();
+                break;
+            case GameState.CardSelection:
+                CardManager.Instance.ShowCardSelection();
+                break;
+            case GameState.Paused:
+                break;
+            case GameState.GameOver:
+                break;
+        }
+    }
+    
     void Start()
     {
         StartCoroutine(StartWaveRoutine());
@@ -51,13 +100,20 @@ public class GameManager : MonoBehaviour
         aliveEnemies--;
         if (aliveEnemies <= 0 && CurrentGameState == GameState.Running)
         {
-            Debug.Log("Wave cleared > Show upgrade UI");
-            StartCoroutine(HandleWaveCleared());
+            Debug.Log("Wave cleared!");
+            StartCoroutine(StartWaveRoutine());
         }
     }
-
+    
     public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ChangeGameStage(GameState.CardSelection);
+            currentLevel++;
+        }
+        
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (CurrentGameState == GameState.Running)
@@ -96,44 +152,13 @@ public class GameManager : MonoBehaviour
         int totalEnemies = baseEnemyCount + wave * 2;
         for (int i = 0; i < totalEnemies; i++)
         {
-            Transform spawnPoint = Random.value < 0.5f ? spawnLeft : spawnRight;
+            Transform spawnPoint = UnityEngine.Random.value < 0.5f ? spawnLeft : spawnRight;
             GameObject e = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
             RegisterEnemySpawn();
             yield return new WaitForSeconds(timeBetweenSpawns);
         }
     }
-
-    private IEnumerator HandleWaveCleared()
-    {
-        CurrentGameState = GameState.Upgrading;
-        Time.timeScale = 0f;
-        waitingForUpgrade = true;
-        
-        UpgradeUIManager.Instance.ShowUpgradeOptions();
-        
-        yield return new WaitUntil(() => waitingForUpgrade == false);
-        
-        yield return new WaitForSeconds(timeBetweenWaves);
-        Time.timeScale = 1f;
-        CurrentGameState = GameState.Running;
-        StartCoroutine(StartWaveRoutine());
-    }
-
-    private void ShowUpgradeMenu()
-    {
-        Debug.Log("✅ Wave cleared — Showing Upgrade UI");
-        CurrentGameState = GameState.Upgrading;
-        Time.timeScale = 0f;
-        waitingForUpgrade = true;
-        UpgradeUIManager.Instance.ShowUpgradeOptions();
-    }
     
-    public void OnUpgradeChosen()
-    {
-        waitingForUpgrade = false;
-        ResumeGame();
-    }
-
     public void OnEnemyKilled()
     {
         RegisterEnemyDeadth();
@@ -141,7 +166,7 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Transform spawnPoint = Random.value < 0.5f ? spawnLeft : spawnRight;
+        Transform spawnPoint = UnityEngine.Random.value < 0.5f ? spawnLeft : spawnRight;
         Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
     }
     public void OnPlayerDeath()
@@ -149,6 +174,7 @@ public class GameManager : MonoBehaviour
         CurrentGameState = GameState.GameOver;
         Time.timeScale = 0f;
         Debug.Log("Game over: Player Died");
+        // TODO: เรียก UI GameOver ถ้ามี
     }
 
     public void OnBaseDestroyed()

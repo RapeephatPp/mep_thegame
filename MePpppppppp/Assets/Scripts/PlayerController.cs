@@ -57,7 +57,4 @@ public class PlayerController : MonoBehaviour
             weapon.Fire(direction);
         }
     }
-
-    // สำหรับระบบอัปเกรด
-    public WeaponSystem GetWeaponSystem() => weapon;
 }

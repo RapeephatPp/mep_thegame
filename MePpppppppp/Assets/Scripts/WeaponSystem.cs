@@ -34,6 +34,6 @@ public class WeaponSystem : MonoBehaviour
 
     public void UpgradeFireRate(float multiplier)
     {
-        fireRate *= multiplier; // เช่น 0.8 = เร็วขึ้น 20%
+        fireRate *= multiplier; // 0.8 = 20%
     }
 }
