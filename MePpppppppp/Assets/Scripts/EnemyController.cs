@@ -68,7 +68,6 @@ public class EnemyController : CharacterBase, IDamageable
     protected override void Die()
     {   
         Debug.Log($"{name} died!");
-        GameManager.Instance.OnEnemyKilled();
         Destroy(gameObject);
     }
 }

@@ -11,7 +11,7 @@ public class CardManager : MonoBehaviour
     
     //currently randomized cards
     GameObject cardOne, cardTwo, cardThree;
-
+    //Card Database
     List<CardSO> alreadySelectedCards = new List<CardSO>();
     
     public static CardManager Instance;
@@ -37,7 +37,6 @@ public class CardManager : MonoBehaviour
         List<CardSO> availableCards = new List<CardSO>(deck);
         availableCards.RemoveAll(card => 
             card.isUnique && alreadySelectedCards.Contains(card) 
-            || card.unlockLevel > GameManager.Instance.GetCurrentLevel()
             );
 
         if (availableCards.Count < 3)
