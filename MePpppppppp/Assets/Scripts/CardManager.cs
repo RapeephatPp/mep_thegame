@@ -1,89 +1,105 @@
 using UnityEngine;
 using System.Collections.Generic;
+
 public class CardManager : MonoBehaviour
 {
     [SerializeField] private GameObject cardSelectionUI;
-    [SerializeField] private GameObject cardPrefab;
-    [SerializeField] Transform cardPositionOne;
-    [SerializeField] Transform cardPositionTwo;
-    [SerializeField] Transform cardPositionThree;
-    [SerializeField] List<CardSO> deck;
-    
-    //currently randomized cards
-    GameObject cardOne, cardTwo, cardThree;
-    //Card Database
-    List<CardSO> alreadySelectedCards = new List<CardSO>();
-    
+    [SerializeField] private List<CardSO> deck;
+
+    [Header("Card Slots")]
+    [SerializeField] private Transform cardSlot1;
+    [SerializeField] private Transform cardSlot2;
+    [SerializeField] private Transform cardSlot3;
+
+    [SerializeField] private GameObject cardUIPrefab;
+
+    private readonly List<CardSO> alreadySelectedCards = new List<CardSO>();
     public static CardManager Instance;
 
-    void Awake()
+    private void Awake()
     {
-        Instance =  this;
+        Instance = this;
     }
 
-    void Start()
+    private void Start()
     {
-        RandomizeNewCards();
+        
     }
-    
+
     public void RandomizeNewCards()
     {
-        if(cardOne != null) Destroy(cardOne);
-        if(cardTwo != null) Destroy(cardTwo);
-        if(cardThree!= null) Destroy(cardThree);
-        
-        List<CardSO> randomizedCards = new List<CardSO>();
-        
-        List<CardSO> availableCards = new List<CardSO>(deck);
-        availableCards.RemoveAll(card => 
-            card.isUnique && alreadySelectedCards.Contains(card) 
-            );
+        // เคลียร์ของเก่า
+        foreach (Transform child in cardSlot1) Destroy(child.gameObject);
+        foreach (Transform child in cardSlot2) Destroy(child.gameObject);
+        foreach (Transform child in cardSlot3) Destroy(child.gameObject);
 
-        if (availableCards.Count < 3)
+        // สุ่มการ์ด 3 ใบ
+        var randomizedCards = GetRandomCards(3);
+        if (randomizedCards.Count < 3)
         {
-            Debug.Log("Not enough available cards");
+            Debug.LogWarning("Not enough available cards to show.");
             return;
         }
 
-        while (randomizedCards.Count < 3)
-        {
-            CardSO randomCard = availableCards[Random.Range(0, availableCards.Count)];
-            if (!randomizedCards.Contains(randomCard))
-            {
-                randomizedCards.Add(randomCard);
-            }
-        }
-
-        cardOne = InstantiateCard(randomizedCards[0], cardPositionOne);
-        cardTwo = InstantiateCard(randomizedCards[1], cardPositionTwo);
-        cardThree = InstantiateCard(randomizedCards[2], cardPositionThree);
+        // สร้าง UI สำหรับแต่ละใบ
+        CreateCardUI(randomizedCards[0], cardSlot1);
+        CreateCardUI(randomizedCards[1], cardSlot2);
+        CreateCardUI(randomizedCards[2], cardSlot3);
     }
 
-    GameObject InstantiateCard(CardSO cardSO, Transform position)
+    private void CreateCardUI(CardSO cardData, Transform slot)
     {
-        GameObject cardGo = Instantiate(cardPrefab, position.position, Quaternion.identity, position);
-        Card card = cardGo.GetComponent<Card>();
-        card.Setup(cardSO);
-        return cardGo;
+        var cardUI = Instantiate(cardUIPrefab, slot);
+        var card = cardUI.GetComponent<Card>();
+        card.Setup(cardData);
+    }
+
+    
+    private List<CardSO> GetRandomCards(int count)
+    {
+        // กรองเด็ค: ถ้าเป็น unique และเคยเลือกไปแล้ว ให้ตัดออก
+        var available = new List<CardSO>(deck);
+        available.RemoveAll(c => c == null);
+        available.RemoveAll(c => c.isUnique && alreadySelectedCards.Contains(c));
+
+        // Fisher–Yates shuffle แบบง่าย
+        for (int i = 0; i < available.Count; i++)
+        {
+            int j = Random.Range(i, available.Count);
+            (available[i], available[j]) = (available[j], available[i]);
+        }
+
+        // คืนจำนวนที่มี (อาจ < count ถ้ามีน้อย)
+        if (available.Count > count) return available.GetRange(0, count);
+        return available;
     }
 
     public void SelectCard(CardSO selectedCard)
     {
-        if (!alreadySelectedCards.Contains(selectedCard))
-        {
-            alreadySelectedCards.Add(selectedCard);
-        }
-        
-        GameManager.Instance.ChangeGameStage(GameState.Running);
-    }
+        if (selectedCard == null) return;
 
+        if (selectedCard.isUnique && !alreadySelectedCards.Contains(selectedCard))
+            alreadySelectedCards.Add(selectedCard);
+
+        selectedCard.ApplyCardEffect(); // ✅ ใช้การ์ดจริง
+        Debug.Log("Card selected: " + selectedCard.cardName);
+
+        OnCardPicked(); // ✅ ปิด UI และเริ่ม wave ต่อไป
+    }
+    
+    public void OnCardPicked()
+    {
+        HideCardSelection();
+        // ไม่ต้องเปลี่ยน state เองที่นี่ ให้ GameManager เป็นคนเริ่มเวฟถัดไป
+        StartCoroutine(GameManager.Instance.StartNextWaveAfterCard());
+    }
+    
+    
+    
     public void ShowCardSelection()
     {
+        Debug.Log("Showing Card UI");
         cardSelectionUI.SetActive(true);
     }
-
-    public void HideCardSelection()
-    {
-        cardSelectionUI.SetActive(false);
-    }
+    public void HideCardSelection()  => cardSelectionUI.SetActive(false);
 }

@@ -4,7 +4,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
-
+    
+    public float jumpForce = 7f;
+    public LayerMask groundLayer;
+    private bool isGrounded;
+    public Transform groundCheck;
+    
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
 
@@ -12,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Camera cam;
     private WeaponSystem weapon;
-
+    
     void Awake()
     {
         Instance = this;
@@ -29,6 +34,13 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleAimingAndShooting();
+        CheckGround();
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+
     }
 
     private void HandleMovement()
@@ -57,4 +69,11 @@ public class PlayerController : MonoBehaviour
             weapon.Fire(direction);
         }
     }
+    
+    //Jummp
+    void CheckGround()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+    
 }

@@ -1,23 +1,53 @@
-using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer cardImageRenderer;
-    [SerializeField] TextMeshPro cardTextRenderer;
-    private CardSO cardInfo;
-    
-    public void Setup(CardSO card)
+    [SerializeField] public Image cardImageRenderer;        // ใส่ Image ของการ์ด
+    [SerializeField] public TextMeshProUGUI cardTextRenderer; // ใส่ข้อความ/คำอธิบาย
+    [SerializeField] private TextMeshProUGUI titleText;       // ถ้ามีชื่อการ์ด แยกจาก text
+
+    private CardSO data;   
+
+    public void Setup(CardSO data)
     {
-        cardInfo = card;
-        cardImageRenderer.sprite = card.cardImage;
-        cardTextRenderer.text = card.cardText;
+        this.data = data;   
+        cardImageRenderer.sprite = data.cardImage;
+        cardTextRenderer.text = data.cardText;
+
+        if (titleText != null)
+            titleText.text = data.cardName;
     }
 
-    void OnMouseDown()
-    {   
-        Debug.Log("You clicked the card!");
-        CardManager.Instance.SelectCard(cardInfo);
+    public void OnCardSelected()
+    {
+        ApplyEffect();
+        CardManager.Instance.OnCardPicked();
+        Destroy(gameObject);
+    }
+    
+    private void ApplyEffect()
+    {
+        switch (data.effectType)   
+        {
+            case CardEffectType.DamageIncrease:
+                WeaponSystem.Instance.AddDamage((int)data.effectValue);
+                break;
+
+            case CardEffectType.HealthIncrease:
+                PlayerHealth.Instance.AddMaxHealth((int)data.effectValue);
+                break;
+
+            case CardEffectType.FireRateIncrease:
+                WeaponSystem.Instance.AddFireRate(data.effectValue);
+                break;
+
+            case CardEffectType.Heal:
+                PlayerHealth.Instance.Heal((int)data.effectValue);
+                break;
+        }
+
+        Debug.Log("Applied card: " + data.cardName);
     }
 }

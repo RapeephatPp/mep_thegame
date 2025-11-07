@@ -2,24 +2,32 @@ using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
 {
-    [Header("Weapon Stats")]
+    public static WeaponSystem Instance;
+
+    [Header("Weapon Settings")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float fireRate = 0.5f;
     [SerializeField] private float bulletSpeed = 10f;
-    [SerializeField] private float bulletDamage = 25f;
 
-    private float nextFireTime;
+    public int bulletDamage = 10;
+    public float fireCooldown = 0.3f;
+
+    private float nextFireTime = 0f;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void Fire(Vector2 direction)
     {
         if (Time.time < nextFireTime) return;
-        nextFireTime = Time.time + fireRate;
+        nextFireTime = Time.time + fireCooldown;
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        BulletController bc = bullet.GetComponent<BulletController>();
 
+        BulletController bc = bullet.GetComponent<BulletController>();
         if (bc != null)
             bc.SetDamage(bulletDamage);
 
@@ -27,13 +35,13 @@ public class WeaponSystem : MonoBehaviour
             rb.linearVelocity = direction * bulletSpeed;
     }
 
-    public void UpgradeDamage(float amount)
+    public void AddDamage(int amount)
     {
         bulletDamage += amount;
     }
 
-    public void UpgradeFireRate(float multiplier)
+    public void AddFireRate(float amount)
     {
-        fireRate *= multiplier; // 0.8 = 20%
+        fireCooldown = Mathf.Max(0.05f, fireCooldown - amount);
     }
 }

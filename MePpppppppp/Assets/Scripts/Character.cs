@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public abstract class CharacterBase : MonoBehaviour
-{
+public abstract class Character : MonoBehaviour
+{   
     [Header("Character Stats")]
-    [SerializeField] protected float maxHealth = 100f;
-    protected float currentHealth;
+    [SerializeField] protected int maxHealth = 100;
+    [SerializeField] protected int currentHealth;
 
     protected virtual void Start()
     {
@@ -13,7 +13,7 @@ public abstract class CharacterBase : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
-        currentHealth -= damage;
+        currentHealth -= Mathf.FloorToInt(damage);
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHealth}");
 
         if (currentHealth <= 0)

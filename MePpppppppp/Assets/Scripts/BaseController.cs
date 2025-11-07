@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BaseController : CharacterBase, IDamageable
+public class BaseController : Character, IDamageable
 {
     protected override void Die()
     {
@@ -10,7 +10,7 @@ public class BaseController : CharacterBase, IDamageable
 
     public void Heal(float amount)
     {
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        Debug.Log($"base Healed! Current Health: {currentHealth}/{maxHealth}");
+        currentHealth = Mathf.Clamp(currentHealth + Mathf.FloorToInt(amount), 0, maxHealth);
+        Debug.Log($"Base Healed! Current Health: {currentHealth}/{maxHealth}");
     }
 }

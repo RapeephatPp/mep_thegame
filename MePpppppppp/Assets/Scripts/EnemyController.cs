@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyController : CharacterBase, IDamageable
+public class EnemyController : Character, IDamageable
 {
     [Header("Enemy Stats")]
     [SerializeField] private float speed = 2f;
@@ -68,6 +68,8 @@ public class EnemyController : CharacterBase, IDamageable
     protected override void Die()
     {   
         Debug.Log($"{name} died!");
+        
+        GameManager.Instance.RegisterEnemyDeath();
         Destroy(gameObject);
     }
 }
