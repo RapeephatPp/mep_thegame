@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ExtraHealthIncrease
   m_EditorClassIdentifier: 
   cardImage: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-  cardText: +200 Health
+  cardName: +MaxHealth
+  cardText: +25
   effectType: 1
-  effectValue: 200
+  effectValue: 25
   isUnique: 0
-  unlockLevel: 3
+  unlockLevel: 0

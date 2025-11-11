@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ShootingSpeedIncrease
   m_EditorClassIdentifier: 
   cardImage: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  cardText: +10% Shooting Speed
+  cardName: +FireRate
+  cardText: +0.3% FireRate
   effectType: 2
-  effectValue: 10
+  effectValue: 0.03
   isUnique: 0
   unlockLevel: 0
