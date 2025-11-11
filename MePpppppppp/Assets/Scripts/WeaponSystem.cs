@@ -32,7 +32,14 @@ public class WeaponSystem : MonoBehaviour
             bc.SetDamage(bulletDamage);
 
         if (rb != null)
-            rb.linearVelocity = direction * bulletSpeed;
+        {
+            Vector2 dir = direction.normalized; // เเน่ใจว่าเป็นหน่วยเวกเตอร์
+            rb.linearVelocity = dir * bulletSpeed;
+
+            // (option) ให้กระสุนหันไปตามทิศทาง เพื่อให้ sprite หมุนถูก
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            bullet.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
     }
 
     public void AddDamage(int amount)

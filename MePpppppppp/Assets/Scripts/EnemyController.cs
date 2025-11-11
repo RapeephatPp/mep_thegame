@@ -49,9 +49,12 @@ public class EnemyController : Character, IDamageable
 
     private void MoveTowards(Transform target)
     {
-        Vector2 dir = new Vector2(target.position.x - transform.position.x, 0).normalized;
-        rb.linearVelocity = new Vector2(dir.x * speed, rb.linearVelocity.y);
-        transform.localScale = new Vector3(Mathf.Sign(dir.x), 1, 1);
+        Vector2 dir = (target.position - transform.position).normalized;
+        rb.linearVelocity = dir * speed;
+
+        // หันตามทิศ
+        if (dir.x != 0)
+            transform.localScale = new Vector3(Mathf.Sign(dir.x), 1, 1);
     }
 
     private void TryAttack(Transform target)

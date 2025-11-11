@@ -1,16 +1,24 @@
 using UnityEngine;
 
-public class BaseController : Character, IDamageable
+public class BaseController : MonoBehaviour, IDamageable
 {
-    protected override void Die()
+    public int maxHealth = 100;
+    private int currentHealth;
+
+    private void Awake()
     {
-        Debug.Log("Base destroyed! Game Over!");
-        GameManager.Instance.OnBaseDestroyed();
+        currentHealth = maxHealth;
     }
 
-    public void Heal(float amount)
+    public void TakeDamage(float amount)
     {
-        currentHealth = Mathf.Clamp(currentHealth + Mathf.FloorToInt(amount), 0, maxHealth);
-        Debug.Log($"Base Healed! Current Health: {currentHealth}/{maxHealth}");
+        currentHealth -= (int)amount;
+        Debug.Log($"Base took {amount} damage. HP: {currentHealth}");
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Base destroyed! Game Over!");
+            GameManager.Instance.OnBaseDestroyed();
+        }
     }
 }
