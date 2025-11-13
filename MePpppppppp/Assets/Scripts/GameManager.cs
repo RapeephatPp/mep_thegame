@@ -46,6 +46,12 @@ public class GameManager : MonoBehaviour
         enemiesToSpawn = baseEnemyCount + (currentWave - 1) * 2;
 
         Debug.Log($"--- Wave {currentWave} ---");
+        
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateWave(currentWave);
+            UIManager.Instance.UpdateGameState("Running");
+        }
 
         waveRoutine = StartCoroutine(SpawnWave());
     }
@@ -93,6 +99,9 @@ public class GameManager : MonoBehaviour
     {
         waitingForCard = true;
         CurrentGameState = GameState.CardSelection;
+        
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateGameState("Card Selection");
 
         // เปิด UI และสุ่มการ์ด 3 ใบ
         CardManager.Instance.ShowCardSelection();
@@ -129,12 +138,20 @@ public class GameManager : MonoBehaviour
     {
         CurrentGameState = GameState.GameOver;
         Time.timeScale = 0f;
+        
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateGameState("Game Over");
+        
         Debug.Log("Game over: Player Died");
     }
     public void OnBaseDestroyed()
     {
         CurrentGameState = GameState.GameOver;
         Time.timeScale = 0f;
+        
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateGameState("Game Over");
+        
         Debug.Log("Game over: Base Destroyed");
     }
 }

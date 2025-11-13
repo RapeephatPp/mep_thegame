@@ -28,6 +28,13 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
         weapon = GetComponent<WeaponSystem>();
+
+        // อัปเดต UI ตอนเริ่ม
+        if (PlayerHealth.Instance != null && UIManager.Instance != null)
+            UIManager.Instance.UpdateHealthBar(PlayerHealth.Instance.CurrentHealth, PlayerHealth.Instance.MaxHealth);
+
+        if (weapon != null && UIManager.Instance != null)
+            UIManager.Instance.UpdateAmmo(weapon.MaxAmmo, weapon.MaxAmmo);
     }
 
     void Update()

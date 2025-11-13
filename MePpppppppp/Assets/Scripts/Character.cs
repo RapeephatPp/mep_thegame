@@ -16,10 +16,12 @@ public abstract class Character : MonoBehaviour
         currentHealth -= Mathf.FloorToInt(damage);
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHealth}");
 
+        // อัปเดตเฉพาะ Player
+        if (gameObject.CompareTag("Player") && UIManager.Instance != null)
+            UIManager.Instance.UpdateHealthBar(currentHealth, maxHealth);
+
         if (currentHealth <= 0)
-        {
             Die();
-        }
     }
 
     protected abstract void Die(); // ให้คลาสลูกนิยามเอง

@@ -12,8 +12,12 @@ public class BaseController : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
-        currentHealth -= (int)amount;
+        currentHealth -= Mathf.RoundToInt(amount);
         Debug.Log($"Base took {amount} damage. HP: {currentHealth}");
+
+        // อัปเดต UI
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateBaseHealth(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {
