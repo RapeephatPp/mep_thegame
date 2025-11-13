@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState { Running, Paused, CardSelection, GameOver }
 
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnRight;
     [SerializeField] private float timeBetweenSpawns = 1.2f;
     [SerializeField] private int baseEnemyCount = 5;
+    
+    [Header("Scene")]
+    [SerializeField] private string gameSceneName = "MainMenu";
 
     public GameState CurrentGameState { get; private set; } = GameState.Running;
     public BaseController BaseCtrl => baseCtrl;
@@ -180,5 +184,11 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.UpdateGameState("Game Over");
         
         Debug.Log("Game over: Base Destroyed");
+    }
+    
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 }
