@@ -1,10 +1,14 @@
 using UnityEngine;
 
 public class BaseController : MonoBehaviour, IDamageable
-{
-    public int maxHealth = 100;
+{   
+    public static BaseController Instance { get; private set; }
+    
+    private int maxHealth = 1000;
     private int currentHealth;
-
+    public int MaxHealth => maxHealth;
+    public int CurrentHealth => currentHealth;
+    
     private void Awake()
     {
         currentHealth = maxHealth;

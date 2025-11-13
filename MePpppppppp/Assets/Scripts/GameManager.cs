@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public BaseController BaseCtrl => baseCtrl;
 
     int currentWave = 0;
+    public int CurrentWave => currentWave;
     int aliveEnemies = 0;
     int enemiesToSpawn = 0;
 
@@ -33,6 +34,21 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartNextWave(); // เริ่มเวฟแรก
+    }
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (CurrentGameState == GameState.Running)
+            {
+                PauseGame();
+            }
+            else if (CurrentGameState == GameState.Paused)
+            {
+                ResumeGame();
+            }
+        }
     }
 
     // ---------- เวฟ ----------
@@ -124,13 +140,24 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         if (CurrentGameState == GameState.Paused) return;
+
         CurrentGameState = GameState.Paused;
         Time.timeScale = 0f;
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.TogglePausePanel(true);
+
+        Debug.Log("Game Paused");
     }
     public void ResumeGame()
     {
         CurrentGameState = GameState.Running;
         Time.timeScale = 1f;
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.TogglePausePanel(false);
+
+        Debug.Log("Game Resumed");
     }
 
     // ---------- Game Over ----------

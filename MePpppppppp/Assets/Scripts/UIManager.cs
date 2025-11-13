@@ -17,10 +17,41 @@ public class UIManager : MonoBehaviour
     [Header("Game Info")]
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private TextMeshProUGUI stateText;
+    
+    [Header("Pause UI")]
+    [SerializeField] private GameObject pausePanel;
+    
+    private void Start()
+    {
+        // Player HP (ถ้ามี)
+        if (PlayerHealth.Instance != null)
+            UpdateHealthBar(PlayerHealth.Instance.CurrentHealth, PlayerHealth.Instance.MaxHealth);
 
+        // Base HP ผ่าน GameManager
+        var gm = GameManager.Instance;
+        if (gm != null && gm.BaseCtrl != null)
+            UpdateBaseHealth(gm.BaseCtrl.CurrentHealth, gm.BaseCtrl.MaxHealth);
+
+        // Wave & State เริ่มต้น
+        if (gm != null)
+        {
+            UpdateWave(gm.CurrentWave);   // ใช้ property ที่เพิ่มในข้อ 2
+            UpdateGameState("Running");
+        }
+    }
+    
     private void Awake()
     {
         Instance = this;
+        
+        if (pausePanel != null)
+            pausePanel.SetActive(false);
+    }
+    //Pause UI
+    public void TogglePausePanel(bool show)
+    {
+        if (pausePanel != null)
+            pausePanel.SetActive(show);
     }
 
     // ---------- Health ----------

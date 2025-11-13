@@ -27,6 +27,15 @@ public class PlayerHealth : Character, IDamageable
         currentHealth += amount;
         Debug.Log("MaxHealth Increased: " + maxHealth);
     }
+    
+    protected override void Start()
+    {
+        base.Start(); // ตั้งค่า currentHealth = maxHealth ก่อน
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateHealthBar(currentHealth, maxHealth);
+        }
+    }
 
     public void Heal(int amount)
     {
