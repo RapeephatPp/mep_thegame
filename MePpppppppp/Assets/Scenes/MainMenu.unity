@@ -1366,8 +1366,8 @@ MonoBehaviour:
   optionsPanel: {fileID: 1645873104}
   gameSceneName: SampleScene
   uiAudio: {fileID: 0}
-  hoverClip: {fileID: 0}
-  clickClip: {fileID: 0}
+  hoverClip: {fileID: 8300000, guid: 4e161f75136946c40b98b579086f564d, type: 3}
+  clickClip: {fileID: 8300000, guid: bcfafbf2c83380d4dab36abfbc1a1719, type: 3}
   fadeTime: 0.4
 --- !u!4 &772916928
 Transform:

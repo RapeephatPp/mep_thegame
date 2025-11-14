@@ -18,9 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeBetweenSpawns = 1.2f;
     [SerializeField] private int baseEnemyCount = 5;
     
-    [Header("Scene")]
-    [SerializeField] private string gameSceneName = "MainMenu";
-
+    
     public GameState CurrentGameState { get; private set; } = GameState.Running;
     public BaseController BaseCtrl => baseCtrl;
 

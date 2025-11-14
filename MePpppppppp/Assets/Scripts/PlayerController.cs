@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
     
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
-
+    
+    private Animator anim;
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Camera cam;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
         weapon = GetComponent<WeaponSystem>();
+        anim = GetComponent<Animator>();
 
         // อัปเดต UI ตอนเริ่ม
         if (PlayerHealth.Instance != null && UIManager.Instance != null)
@@ -38,16 +40,25 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+
+        bool walking = (x != 0 || y != 0);
+        anim.SetBool("IsWalking", walking);
+
+        // ถือปืน?
+        anim.SetBool("HasGun", true); // ถ้าตอนนี้ตายแหน่งตัวถือปืนตลอด
+
+        // ยิงปืน
+        if (Input.GetButtonDown("Fire1"))
+            anim.SetTrigger("Shoot");
+        
+        
         HandleMovement();
         HandleAimingAndShooting();
         CheckGround();
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
-
+        
     }
 
     private void HandleMovement()
@@ -56,8 +67,11 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
 
         // พลิกตัวหันซ้าย/ขวา
-        if (moveInput.x > 0) transform.localScale = Vector3.one;
-        else if (moveInput.x < 0) transform.localScale = new Vector3(-1, 1, 1);
+        if (moveInput.x > 0) 
+            transform.localScale = new Vector3(2, 2, 1);
+        else if (moveInput.x < 0) 
+            transform.localScale = new Vector3(-2, 2, 1);
+
     }
 
     private void HandleAimingAndShooting()
