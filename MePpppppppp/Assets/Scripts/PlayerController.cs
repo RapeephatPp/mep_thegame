@@ -7,17 +7,17 @@ public class PlayerController : MonoBehaviour
     
     public float jumpForce = 7f;
     public LayerMask groundLayer;
-    private bool isGrounded;
     public Transform groundCheck;
     
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
     
-    private Animator anim;
+    private bool isGrounded;
+    private Animator animator;
     private Rigidbody2D rb;
-    private Vector2 moveInput;
     private Camera cam;
     private WeaponSystem weapon;
+    SpriteRenderer sr;
     
     void Awake()
     {
@@ -27,9 +27,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         cam = Camera.main;
+        sr = GetComponent<SpriteRenderer>();
         weapon = GetComponent<WeaponSystem>();
-        anim = GetComponent<Animator>();
 
         // อัปเดต UI ตอนเริ่ม
         if (PlayerHealth.Instance != null && UIManager.Instance != null)
@@ -41,39 +42,29 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {   
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        float move = Input.GetAxisRaw("Horizontal");
 
-        bool walking = (x != 0 || y != 0);
-        anim.SetBool("IsWalking", walking);
+        // ส่งค่า IsWalking เข้า Animator
+        bool IsWalking = Mathf.Abs(move) > 0.01f;
+        animator.SetBool("IsWalking", IsWalking);
 
-        // ถือปืน?
-        anim.SetBool("HasGun", true); // ถ้าตอนนี้ตายแหน่งตัวถือปืนตลอด
+        // เดินจริง ๆ
+        Debug.Log("IsWalking = " + IsWalking);
+        rb.linearVelocity = new Vector2(move * moveSpeed, rb.linearVelocity.y);
 
-        // ยิงปืน
-        if (Input.GetButtonDown("Fire1"))
-            anim.SetTrigger("Shoot");
-        
-        
         HandleMovement();
         HandleAimingAndShooting();
         CheckGround();
         
     }
-
+    
     private void HandleMovement()
     {
-        moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
-        rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
-
-        // พลิกตัวหันซ้าย/ขวา
-        if (moveInput.x > 0) 
-            transform.localScale = new Vector3(2, 2, 1);
-        else if (moveInput.x < 0) 
-            transform.localScale = new Vector3(-2, 2, 1);
-
+        float x = Input.GetAxisRaw("Horizontal");
+        rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
     }
 
+    
     private void HandleAimingAndShooting()
     {
         if (weapon == null)

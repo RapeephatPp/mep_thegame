@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: f505736c4366aae4f842fee3c29d3107
+guid: 3263cffd9dc3dc147934f5ef5ec0d027
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4655247495526326364
-    second: Lumina_Walk_NoArm_SS_0
-  - first:
-      213: -3105470137602898603
-    second: Lumina_Walk_NoArm_SS_1
-  - first:
-      213: 2885642871400418164
-    second: Lumina_Walk_NoArm_SS_2
-  - first:
-      213: -5833299649987282633
-    second: Lumina_Walk_NoArm_SS_3
+      213: 3428542460003981017
+    second: Lumina_Gun_Arm_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,89 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lumina_Walk_NoArm_SS_0
+      name: Lumina_Gun_Arm_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 0
-        width: 62
-        height: 109
+        x: 17
+        y: 67
+        width: 48
+        height: 24
       alignment: 9
-      pivot: {x: 0.4677419, y: 0.52293575}
+      pivot: {x: 0.7083334, y: 0.7916667}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c50af50cee2ca9040800000000000000
-      internalID: 4655247495526326364
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lumina_Walk_NoArm_SS_1
-      rect:
-        serializedVersion: 2
-        x: 75
-        y: 0
-        width: 46
-        height: 109
-      alignment: 9
-      pivot: {x: 0.6956522, y: 0.52293575}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 55588930d5727e4d0800000000000000
-      internalID: -3105470137602898603
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lumina_Walk_NoArm_SS_2
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 0
-        width: 66
-        height: 110
-      alignment: 9
-      pivot: {x: 0.4848485, y: 0.5181818}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 47bc57a17ecdb0820800000000000000
-      internalID: 2885642871400418164
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lumina_Walk_NoArm_SS_3
-      rect:
-        serializedVersion: 2
-        x: 226
-        y: 0
-        width: 50
-        height: 109
-      alignment: 9
-      pivot: {x: 0.62, y: 0.52293575}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 739f81edfd4fb0fa0800000000000000
-      internalID: -5833299649987282633
+      spriteID: 9d691e1c331a49f20800000000000000
+      internalID: 3428542460003981017
       vertices: []
       indices: 
       edges: []
@@ -200,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bb520a8623767d94e8704e38939bf419
+    spriteID: 339d9c9d6b1dd534cb44698531b55050
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Lumina_Walk_NoArm_SS_0: 4655247495526326364
-      Lumina_Walk_NoArm_SS_1: -3105470137602898603
-      Lumina_Walk_NoArm_SS_2: 2885642871400418164
-      Lumina_Walk_NoArm_SS_3: -5833299649987282633
+      Lumina_Gun_Arm_0: 3428542460003981017
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

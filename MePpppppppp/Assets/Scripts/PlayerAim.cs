@@ -2,36 +2,41 @@ using UnityEngine;
 
 public class PlayerAim : MonoBehaviour
 {
-    [Header("References")]
-    public Transform arm;        // แขนของตัวละคร
-    public Transform playerRoot; // ตัว Player หลัก
+    public Transform arm;                 
+    public SpriteRenderer armRenderer;     
+    public Sprite armRightSprite;          
+    public Sprite armLeftSprite;           
+    public SpriteRenderer playerRenderer;  
 
     void Update()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 dir = mousePos - arm.position;
+        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 dir = mouse - arm.position;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        // หมุนแขน
-        arm.rotation = Quaternion.Euler(0, 0, angle);
+        bool isLeft = (mouse.x < transform.position.x);
 
-        // Flip ตัวละคร แต่ไม่ flip แขน
-        if (angle > 90 || angle < -90)
+        if (isLeft)
         {
-            // หันไปทางซ้าย
-            playerRoot.localScale = new Vector3(-1, 1, 1);
+            // เปลี่ยน sprite แขนเป็นด้านซ้าย
+            armRenderer.sprite = armLeftSprite;
 
-            // แขนต้องกลับมาหันทางขวาตลอด (ป้องกันกลับหัว)
-            arm.localScale = new Vector3(1, -1, 1); // พลิกแกน Y ของแขน
+            // หมุนแขนแบบกลับซ้าย (เพิ่ม 180 องศา)
+            arm.rotation = Quaternion.Euler(0, 0, angle + 180f);
+
+            // ให้ตัวละครหันซ้าย
+            playerRenderer.flipX = true;
         }
         else
         {
-            // หันขวา
-            playerRoot.localScale = new Vector3(1, 1, 1);
+            // ใช้ sprite แขนขวา
+            armRenderer.sprite = armRightSprite;
 
-            // แขนกลับมาเป็นปกติ
-            arm.localScale = new Vector3(1, 1, 1);
+            // หมุนปกติ
+            arm.rotation = Quaternion.Euler(0, 0, angle);
+
+            playerRenderer.flipX = false;
         }
     }
 }
