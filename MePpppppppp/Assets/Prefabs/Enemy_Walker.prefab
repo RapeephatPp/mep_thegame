@@ -213,3 +213,4 @@ MonoBehaviour:
   attackDamage: 20
   attackCooldown: 1
   attackRange: 1.5
+  targetBase: {fileID: 0}

@@ -44,24 +44,22 @@ public class PlayerController : MonoBehaviour
     {   
         float move = Input.GetAxisRaw("Horizontal");
 
-        // ส่งค่า IsWalking เข้า Animator
+        // animation
         bool IsWalking = Mathf.Abs(move) > 0.01f;
         animator.SetBool("IsWalking", IsWalking);
 
         // เดินจริง ๆ
         Debug.Log("IsWalking = " + IsWalking);
-        rb.linearVelocity = new Vector2(move * moveSpeed, rb.linearVelocity.y);
 
-        HandleMovement();
+        HandleMovement(move);
         HandleAimingAndShooting();
         CheckGround();
         
     }
     
-    private void HandleMovement()
+    private void HandleMovement(float move)
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        rb.linearVelocity = new Vector2(x * moveSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(move * moveSpeed, rb.linearVelocity.y);
     }
 
     

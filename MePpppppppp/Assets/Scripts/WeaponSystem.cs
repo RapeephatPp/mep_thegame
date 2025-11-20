@@ -21,6 +21,7 @@ public class WeaponSystem : MonoBehaviour
     private int currentAmmo;
     private float nextFireTime = 0f;
     private bool isReloading = false;
+    public GameObject muzzleFlashPrefab;
 
     private void Awake()
     {
@@ -30,11 +31,9 @@ public class WeaponSystem : MonoBehaviour
 
     public void Fire(Vector2 direction)
     {
-        if (isReloading || Time.time < nextFireTime) return;
-        
-        if (UIManager.Instance != null)
-            UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
-        
+        if (Time.time < nextFireTime || isReloading)
+            return;
+
         if (currentAmmo <= 0)
         {
             StartCoroutine(Reload());
@@ -44,27 +43,37 @@ public class WeaponSystem : MonoBehaviour
         nextFireTime = Time.time + fireCooldown;
         currentAmmo--;
 
-        // อัปเดต UI Ammo
-        UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
+        // Screen Shake (เบาลง)
+        StartCoroutine(CameraShake.Instance.Shake(0.04f, 0.04f));
 
-        // ยิงกระสุน
+
+        // --------- Muzzle Flash ---------
+        if (muzzleFlashPrefab != null && firePoint != null)
+        {
+            // สร้างเป็นลูกของ firePoint เลย จะได้อยู่ตำแหน่ง / มุมเดียวกัน
+            GameObject flash = Instantiate(
+                muzzleFlashPrefab,
+                firePoint.position,
+                firePoint.rotation,
+                firePoint           // parent = firePoint
+            );
+            // ปล่อยให้ FlashAutoDestroy ใน prefab เป็นคน Destroy เอง
+        }
+        
+        // Bullet
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        BulletController bc = bullet.GetComponent<BulletController>();
-        if (bc != null) bc.SetDamage(bulletDamage);
+        bullet.transform.up = direction;
 
-        Vector2 dir = direction.normalized;
-        rb.linearVelocity = dir * bulletSpeed;
-        bullet.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.linearVelocity = direction.normalized * bulletSpeed;
     }
+
 
     private IEnumerator Reload()
     {
         if (isReloading) yield break;
         isReloading = true;
         
-        
-
         float timer = 0f;
         while (timer < reloadTime)
         {

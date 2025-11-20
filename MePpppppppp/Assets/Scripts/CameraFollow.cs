@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;       // ตัวละคร
-    public float smoothSpeed = 5f; // ความลื่นไหล
-    public Vector3 offset;         // ระยะห่าง
+    public Transform target;
+    public float smoothSpeed = 5f;
+    public Vector3 offset;
 
     void LateUpdate()
     {
         if (target == null) return;
 
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-        transform.position = smoothedPosition;
+        Vector3 desiredPos = target.position + offset;
+        Vector3 smoothPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed * Time.deltaTime);
+        transform.position = new Vector3(smoothPos.x, smoothPos.y, transform.position.z);
     }
 }

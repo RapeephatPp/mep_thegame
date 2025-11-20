@@ -20,12 +20,7 @@ public class CardManager : MonoBehaviour
     {
         Instance = this;
     }
-
-    private void Start()
-    {
-        
-    }
-
+    
     public void RandomizeNewCards()
     {
         // เคลียร์ของเก่า
