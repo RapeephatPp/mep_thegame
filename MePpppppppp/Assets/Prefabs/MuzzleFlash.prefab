@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8222235280515780212}
   m_Layer: 0
   m_Name: MuzzleFlash
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489cf601049549947b87e5c27499ffec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0.12
+  time: 0.33
 --- !u!95 &8222235280515780212
 Animator:
   serializedVersion: 7

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1984453024080794308}
   - component: {fileID: 3230560315522519750}
   - component: {fileID: -2361856245513586750}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1104852564332827250}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.78, y: 0.4365713, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -166,7 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3298143baf8a5c84fb844f3fc785fba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
   lifetime: 3
   damage: 25
   hitEffectPrefab: {fileID: 2580902599488880129, guid: 6bea34507c867e5479a2aef5fb0d50fc, type: 3}

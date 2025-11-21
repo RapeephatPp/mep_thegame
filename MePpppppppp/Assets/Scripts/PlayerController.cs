@@ -71,12 +71,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // แปลงตำแหน่งเมาส์เป็น world space แล้วดึงเฉพาะ x,y เป็น Vector2
+        // เมาส์ใน world space
         Vector3 mouseWorld3 = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mouseWorld2 = new Vector2(mouseWorld3.x, mouseWorld3.y);
 
-        // คำนวณทิศทางโดยใช้ 2D vectors เท่านั้น (จะไม่ถูก normalize ด้วย z component อีกต่อไป)
-        Vector2 direction = (mouseWorld2 - (Vector2)transform.position).normalized;
+        // ⭐ ใช้ตำแหน่งปากปืนเป็นต้นทิศ
+        Vector2 firePos = (Vector2)weapon.FirePoint.position;
+        Vector2 direction = (mouseWorld2 - firePos).normalized;
 
         if (Input.GetMouseButton(0))
         {

@@ -8,6 +8,7 @@ public class WeaponSystem : MonoBehaviour
     [Header("Weapon Settings")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
+    public Transform FirePoint => firePoint; 
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private int bulletDamage = 10;
 
@@ -45,24 +46,25 @@ public class WeaponSystem : MonoBehaviour
 
         // Screen Shake (เบาลง)
         StartCoroutine(CameraShake.Instance.Shake(0.04f, 0.04f));
-
+        
 
         // --------- Muzzle Flash ---------
-        if (muzzleFlashPrefab != null && firePoint != null)
+        if (muzzleFlashPrefab != null)
         {
-            // สร้างเป็นลูกของ firePoint เลย จะได้อยู่ตำแหน่ง / มุมเดียวกัน
             GameObject flash = Instantiate(
                 muzzleFlashPrefab,
                 firePoint.position,
-                firePoint.rotation,
-                firePoint           // parent = firePoint
+                Quaternion.identity,      // ไม่เอา firePoint.rotation แล้ว
+                firePoint                 // ให้เป็นลูกของ firePoint เหมือนเดิม
             );
-            // ปล่อยให้ FlashAutoDestroy ใน prefab เป็นคน Destroy เอง
+
+            // ให้ flare หันไปตามทิศยิง
+            flash.transform.right = direction.normalized;
         }
         
         // Bullet
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        bullet.transform.up = direction;
+        bullet.transform.right = direction.normalized;   // หันไปตามทิศยิง
 
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction.normalized * bulletSpeed;
