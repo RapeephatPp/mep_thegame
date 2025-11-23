@@ -29,7 +29,7 @@ public class Card : MonoBehaviour
     
     private void ApplyEffect()
     {
-        switch (data.effectType)   
+        switch (data.effectType)
         {
             case CardEffectType.DamageIncrease:
                 WeaponSystem.Instance.AddDamage((int)data.effectValue);
@@ -45,6 +45,22 @@ public class Card : MonoBehaviour
 
             case CardEffectType.Heal:
                 PlayerHealth.Instance.Heal((int)data.effectValue);
+                break;
+
+            case CardEffectType.BulletRange:
+                BulletController.AddLifetime(data.effectValue);
+                break;
+
+            case CardEffectType.BulletSpeed:
+                WeaponSystem.Instance.AddBulletSpeed(data.effectValue);
+                break;
+
+            case CardEffectType.BaseHealthIncrease:
+                BaseController.Instance.AddMaxHealth((int)data.effectValue);
+                break;
+
+            case CardEffectType.AmmoCapacity:
+                WeaponSystem.Instance.AddAmmoCapacity((int)data.effectValue);
                 break;
         }
 

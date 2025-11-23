@@ -13,6 +13,12 @@ public class BaseSceneManager : MonoBehaviour
     private void Start()
     {
         SpawnPlayerAndApplyStats();
+
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateGameState("Resting");
+            UIManager.Instance.UpdateWave(RunData.currentWave);   // โชว์ wave เดิมที่เล่นอยู่
+        }
     }
 
     void SpawnPlayerAndApplyStats()
@@ -66,6 +72,9 @@ public class BaseSceneManager : MonoBehaviour
             RunData.maxAmmo = WeaponSystem.Instance.MaxAmmo;
         }
 
-        SceneManager.LoadScene(battleSceneName);
+        if (SceneFader.Instance != null)
+            SceneFader.Instance.FadeToScene(battleSceneName);
+        else
+            SceneManager.LoadScene(battleSceneName);
     }
 }

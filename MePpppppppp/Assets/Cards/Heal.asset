@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 851f97862ac43e8488554e891a4b93fa, type: 3}
-  m_Name: ExtraHealthIncrease
+  m_Name: Heal
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-  cardName: +MaxHealth
-  cardText: +25 MaxHealth
-  effectType: 1
-  effectValue: 25
+  cardImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  cardName: Medkit
+  cardText: +50 Health
+  effectType: 3
+  effectValue: 50
   isUnique: 0
   unlockLevel: 0

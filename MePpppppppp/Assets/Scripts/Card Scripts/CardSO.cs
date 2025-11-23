@@ -50,16 +50,19 @@ public class CardSO : ScriptableObject
                 break;
             
             case CardEffectType.BulletRange:
-                BulletController.AddLifetime((int)effectValue);
+                BulletController.AddLifetime(effectValue);
                 break;
+            
             case CardEffectType.BulletSpeed:
-                WeaponSystem.Instance.AddBulletSpeed((int)effectValue);
+                weapon.AddBulletSpeed(effectValue);
                 break;
+            
             case CardEffectType.BaseHealthIncrease:
                 BaseController.Instance.AddMaxHealth((int)effectValue);
                 break;
+            
             case CardEffectType.AmmoCapacity:
-                WeaponSystem.Instance.AddAmmoCapacity((int)effectValue);
+                weapon.AddAmmoCapacity((int)effectValue);
                 break;
         }
 

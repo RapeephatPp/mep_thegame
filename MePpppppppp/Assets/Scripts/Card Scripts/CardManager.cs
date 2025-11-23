@@ -29,7 +29,7 @@ public class CardManager : MonoBehaviour
         foreach (Transform child in cardSlot3) Destroy(child.gameObject);
 
         // สุ่มการ์ด 3 ใบ
-        var randomizedCards = GetRandomCards(3);
+        var randomizedCards = GetRandomCards(9);
         if (randomizedCards.Count < 3)
         {
             Debug.LogWarning("Not enough available cards to show.");

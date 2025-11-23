@@ -43,7 +43,8 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        
+        Debug.Log("[UIManager] Awake in scene: " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+
         if (pausePanel != null)
             pausePanel.SetActive(false);
     }

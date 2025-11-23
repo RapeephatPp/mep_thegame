@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    [SerializeField] private float lifetime = 3f;
+    [SerializeField] private float lifetime = 1f;
     [SerializeField] private float damage = 25f;
     public GameObject hitEffectPrefab;
 

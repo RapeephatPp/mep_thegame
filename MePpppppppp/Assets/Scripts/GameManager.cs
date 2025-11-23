@@ -148,15 +148,19 @@ public class GameManager : MonoBehaviour
         if (currentWave > 0 && currentWave % 5 == 0)
         {
             SaveRunData();
-            SceneManager.LoadScene(baseSceneName);
+
+            if (SceneFader.Instance != null)
+                SceneFader.Instance.FadeToScene(baseSceneName);
+            else
+                SceneManager.LoadScene(baseSceneName);
         }
         else
         {
             StartNextWave();
         }
+
     }
-
-
+    
     // ---------- Pause / Resume (ถ้าอยากใช้กด ESC) ----------
     public void PauseGame()
     {
@@ -268,6 +272,10 @@ public class GameManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+
+        if (SceneFader.Instance != null)
+            SceneFader.Instance.FadeToScene("MainMenu");
+        else
+            SceneManager.LoadScene("MainMenu");
     }
 }

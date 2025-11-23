@@ -42,7 +42,15 @@ public class MainMenuManager : MonoBehaviour
     public void OnStartGame()
     {
         Play(clickClip);
-        StartCoroutine(LoadGameFlow());
+        if (SceneFader.Instance != null)
+        {
+            SceneFader.Instance.FadeToScene(gameSceneName);
+        }
+        else
+        {
+            // ถ้าไม่มี SceneFader (กันพัง) ใช้วิธีเดิม
+            StartCoroutine(LoadGameFlow());
+        }
     }
 
     public void OnOpenOptions()
