@@ -9,6 +9,16 @@ public class BaseController : MonoBehaviour, IDamageable
     public int MaxHealth => maxHealth;
     public int CurrentHealth => currentHealth;
     
+    public void SetHealthFromRun(int current, int max)
+    {
+        maxHealth = max;
+        currentHealth = Mathf.Clamp(current, 0, maxHealth);
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateBaseHealth(currentHealth, maxHealth);
+    }
+
+    
     private void Awake()
     {   
         Instance = this;

@@ -48,8 +48,8 @@ public class PlayerController : MonoBehaviour
         bool IsWalking = Mathf.Abs(move) > 0.01f;
         animator.SetBool("IsWalking", IsWalking);
 
-        // เดินจริง ๆ
-        Debug.Log("IsWalking = " + IsWalking);
+        /*// เดินจริง ๆ
+        Debug.Log("IsWalking = " + IsWalking);*/
 
         HandleMovement(move);
         HandleAimingAndShooting();

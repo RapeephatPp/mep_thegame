@@ -55,6 +55,15 @@ public class PlayerHealth : Character, IDamageable
         if (UIManager.Instance != null)
             UIManager.Instance.UpdateHealthBar(currentHealth, maxHealth);
     }
+    
+    public void SetHealthFromRun(int current, int max)
+    {
+        maxHealth = max;
+        currentHealth = Mathf.Clamp(current, 0, maxHealth);
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateHealthBar(currentHealth, maxHealth);
+    }
 
     protected override void Die()
     {

@@ -7,7 +7,11 @@ public enum GameState { Running, Paused, CardSelection, GameOver }
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    
+    [Header("Scene Names")]
+    [SerializeField] private string baseSceneName = "BaseScene";
 
+    
     [Header("Base Settings")]
     [SerializeField] private BaseController baseCtrl;
 
@@ -34,7 +38,12 @@ public class GameManager : MonoBehaviour
     void Awake() => Instance = this;
 
     void Start()
-    {
+    {   
+        if (RunData.HasData)
+        {
+            LoadRunData();
+        }
+        
         StartNextWave(); // เริ่มเวฟแรก
     }
     
@@ -135,8 +144,18 @@ public class GameManager : MonoBehaviour
         waitingForCard = false;
         yield return new WaitForSeconds(0.2f); // กันเฟรมชน
 
-        StartNextWave();
+        // ทุก ๆ 5 เวฟ เข้า BaseScene
+        if (currentWave > 0 && currentWave % 5 == 0)
+        {
+            SaveRunData();
+            SceneManager.LoadScene(baseSceneName);
+        }
+        else
+        {
+            StartNextWave();
+        }
     }
+
 
     // ---------- Pause / Resume (ถ้าอยากใช้กด ESC) ----------
     public void PauseGame()
@@ -161,6 +180,68 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Game Resumed");
     }
+    
+    // ---------- Save / Load RunData สำหรับข้ามฉาก ----------
+    void SaveRunData()
+    {
+        RunData.HasData = true;
+
+        RunData.currentWave = currentWave;
+
+        if (PlayerHealth.Instance != null)
+        {
+            RunData.playerCurrentHp = PlayerHealth.Instance.CurrentHealth;
+            RunData.playerMaxHp = PlayerHealth.Instance.MaxHealth;
+        }
+
+        if (baseCtrl != null)
+        {
+            RunData.baseCurrentHp = baseCtrl.CurrentHealth;
+            RunData.baseMaxHp = baseCtrl.MaxHealth;
+        }
+
+        if (WeaponSystem.Instance != null)
+        {
+            RunData.bulletDamage = WeaponSystem.Instance.BulletDamage;
+            RunData.bulletSpeed = WeaponSystem.Instance.BulletSpeed;
+            RunData.fireCooldown = WeaponSystem.Instance.FireCooldown;
+            RunData.maxAmmo = WeaponSystem.Instance.MaxAmmo;
+        }
+    }
+
+    void LoadRunData()
+    {
+        if (!RunData.HasData) return;
+
+        currentWave = RunData.currentWave;
+
+        if (PlayerHealth.Instance != null)
+        {
+            PlayerHealth.Instance.SetHealthFromRun(
+                RunData.playerCurrentHp,
+                RunData.playerMaxHp
+            );
+        }
+
+        if (baseCtrl != null)
+        {
+            baseCtrl.SetHealthFromRun(
+                RunData.baseCurrentHp,
+                RunData.baseMaxHp
+            );
+        }
+
+        if (WeaponSystem.Instance != null)
+        {
+            WeaponSystem.Instance.SetWeaponFromRun(
+                RunData.bulletDamage,
+                RunData.bulletSpeed,
+                RunData.fireCooldown,
+                RunData.maxAmmo
+            );
+        }
+    }
+
 
     // ---------- Game Over ----------
     public void OnPlayerDeath()

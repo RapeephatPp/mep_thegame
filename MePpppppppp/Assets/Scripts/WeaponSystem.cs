@@ -8,14 +8,19 @@ public class WeaponSystem : MonoBehaviour
     [Header("Weapon Settings")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
-    public Transform FirePoint => firePoint; 
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private int bulletDamage = 10;
 
     [Header("Fire / Reload")]
     [SerializeField] private float fireCooldown = 0.3f;
     [SerializeField] private int maxAmmo = 10;
+    
+    public Transform FirePoint => firePoint;
+    public float BulletSpeed => bulletSpeed;
+    public int BulletDamage => bulletDamage;
+    public float FireCooldown => fireCooldown;
     public int MaxAmmo => maxAmmo;
+    
 
     [SerializeField] private float reloadTime = 2f;
 
@@ -115,4 +120,19 @@ public class WeaponSystem : MonoBehaviour
         if (UIManager.Instance != null)
             UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
     }
+    
+    public void SetWeaponFromRun(int damage, float speed, float cooldown, int maxAmmo)
+    {
+        bulletDamage = damage;
+        bulletSpeed = speed;
+        fireCooldown = cooldown;
+        this.maxAmmo = maxAmmo;
+
+        // currentAmmo มีอยู่ในสคริปต์อยู่แล้ว
+        currentAmmo = Mathf.Clamp(currentAmmo, 0, this.maxAmmo);
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateAmmo(currentAmmo, this.maxAmmo);
+    }
+
 }
