@@ -3,7 +3,11 @@ using UnityEngine;
 public class PlayerHealth : Character, IDamageable
 {   
     public static PlayerHealth Instance { get; private set; }
-
+    
+    [Header("Last Stand")]
+    [SerializeField, Range(0f,1f)] private float lastStandHpPercent = 0.3f;   
+    [SerializeField] private float lastStandDamageMultiplier = 0.6f;         
+    
     private void Awake()
     {
         Instance = this;
@@ -14,9 +18,15 @@ public class PlayerHealth : Character, IDamageable
 
     public override void TakeDamage(float damage)
     {
-        base.TakeDamage(damage); // ลดเลือดตามระบบ Character
+        // เช็คเลือดก่อนโดนดาเมจ
+        float hpRatio = (float)currentHealth / maxHealth;
+        if (hpRatio <= lastStandHpPercent)
+        {
+            damage *= lastStandDamageMultiplier;
+        }
 
-        // อัปเดต UI เฉพาะผู้เล่น
+        base.TakeDamage(damage);
+
         if (UIManager.Instance != null)
             UIManager.Instance.UpdateHealthBar(currentHealth, maxHealth);
     }

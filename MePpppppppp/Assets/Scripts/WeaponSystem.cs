@@ -101,4 +101,18 @@ public class WeaponSystem : MonoBehaviour
     {
         fireCooldown = Mathf.Max(0.05f, fireCooldown - amount);
     }
+
+    public void AddBulletSpeed(float amount)
+    {
+        bulletSpeed += amount;
+    }
+
+    public void AddAmmoCapacity(int amount)
+    {
+        maxAmmo += amount;
+        currentAmmo = amount;
+        
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
+    }
 }

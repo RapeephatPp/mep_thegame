@@ -5,6 +5,10 @@ public class BulletController : MonoBehaviour
     [SerializeField] private float lifetime = 3f;
     [SerializeField] private float damage = 25f;
     public GameObject hitEffectPrefab;
+
+    public static float LifetimeMultiplier { get; private set; } = 1f;
+
+    
     
     private Vector2 moveDir;
     private float speed;
@@ -13,21 +17,26 @@ public class BulletController : MonoBehaviour
         moveDir = direction.normalized;   // เก็บทิศทางเป็น unit vector
         this.speed = speed;
         this.damage = damage;
-
-        // ถ้ากระสุนมี Sprite หัว-ท้ายชัดเจน อยากให้หมุนตามทิศก็ทำได้:
+        
+        
         float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
     
     void Start()
     {
-        Destroy(gameObject, lifetime);
+        Destroy(gameObject, lifetime * LifetimeMultiplier);
     }
     
     private void Update()
     {
         // เคลื่อนที่ตามทิศ moveDir ตรง ๆ
         transform.position += (Vector3)(moveDir * speed * Time.deltaTime);
+    }
+    
+    public static void AddLifetime(float amount)
+    {
+        LifetimeMultiplier += amount;
     }
 
     public void SetDamage(float newDamage) 

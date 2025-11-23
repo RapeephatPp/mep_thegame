@@ -8,7 +8,9 @@ public enum CardEffectType
     Heal,
     BulletRange,
     BulletSpeed,
-    BaseMaxHp
+    BaseHealthIncrease,
+    AmmoCapacity,
+    
     
 }
 
@@ -19,10 +21,10 @@ public class CardSO : ScriptableObject
     public string cardName; // Name of the Card
     public string cardText; // Text on the Card
 
-    public CardEffectType effectType;   // ✅ ประเภทเอฟเฟกต์
-    public float effectValue;           // ✅ ค่าที่จะเพิ่มตามการ์ด
-    public bool isUnique;               // ✅ ใช้ได้ครั้งเดียวหรือไม่
-    public int unlockLevel;             // ✅ ปลดล็อกตอนเลเวลไหน
+    public CardEffectType effectType;   // Effect type of the card
+    public float effectValue;           // Effect value of the card
+    public bool isUnique;               // Only find One
+    public int unlockLevel;             // Unlock which level
 
     public void ApplyCardEffect()
     {
@@ -48,13 +50,16 @@ public class CardSO : ScriptableObject
                 break;
             
             case CardEffectType.BulletRange:
-                //Add Effect
+                BulletController.AddLifetime((int)effectValue);
                 break;
             case CardEffectType.BulletSpeed:
-                //Add Effect
+                WeaponSystem.Instance.AddBulletSpeed((int)effectValue);
                 break;
-            case CardEffectType.BaseMaxHp:
-                //Add Effect
+            case CardEffectType.BaseHealthIncrease:
+                BaseController.Instance.AddMaxHealth((int)effectValue);
+                break;
+            case CardEffectType.AmmoCapacity:
+                WeaponSystem.Instance.AddAmmoCapacity((int)effectValue);
                 break;
         }
 

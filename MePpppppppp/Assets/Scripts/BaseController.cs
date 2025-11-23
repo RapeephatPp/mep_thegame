@@ -10,8 +10,18 @@ public class BaseController : MonoBehaviour, IDamageable
     public int CurrentHealth => currentHealth;
     
     private void Awake()
-    {
+    {   
+        Instance = this;
         currentHealth = maxHealth;
+    }
+
+    public void AddMaxHealth(int amount)
+    {
+        maxHealth += amount;
+        currentHealth += amount;
+        
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateBaseHealth(currentHealth, maxHealth);
     }
 
     public void TakeDamage(float amount)
