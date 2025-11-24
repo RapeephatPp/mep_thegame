@@ -184,6 +184,17 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Game Resumed");
     }
+    //restart on death
+    public void OnRestartPressed()
+    {
+        Time.timeScale = 1f;
+
+        var scene = SceneManager.GetActiveScene();
+        if (SceneFader.Instance != null)
+            SceneFader.Instance.FadeToScene(scene.name);
+        else
+            SceneManager.LoadScene(scene.name);
+    }
     
     // ---------- Save / Load RunData สำหรับข้ามฉาก ----------
     void SaveRunData()
@@ -254,7 +265,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         
         if (UIManager.Instance != null)
+        {
             UIManager.Instance.UpdateGameState("Game Over");
+            UIManager.Instance.TogglePausePanel(false);   // เผื่อกำลัง pause อยู่
+            UIManager.Instance.ToggleDeathPanel(true);    // ⭐ เปิด Death UI
+        }
         
         Debug.Log("Game over: Player Died");
     }
@@ -264,7 +279,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         
         if (UIManager.Instance != null)
+        {
             UIManager.Instance.UpdateGameState("Game Over");
+            UIManager.Instance.TogglePausePanel(false);
+            UIManager.Instance.ToggleDeathPanel(true);    // ⭐ เปิด Death UI
+        }
         
         Debug.Log("Game over: Base Destroyed");
     }

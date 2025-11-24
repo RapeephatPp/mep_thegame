@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardImage: {fileID: -8159100923024199137, guid: a0dd1530169eb6244a4f54208dcb8a02, type: 3}
   cardName: +MaxBaseHP
-  cardText: +50 Max Base Health
+  cardText: +100 Max Base Health
   effectType: 6
-  effectValue: 50
+  effectValue: 100
   isUnique: 0
   unlockLevel: 3

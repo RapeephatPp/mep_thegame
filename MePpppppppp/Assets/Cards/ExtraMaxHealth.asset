@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851f97862ac43e8488554e891a4b93fa, type: 3}
   m_Name: ExtraMaxHealth
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 0}
-  cardName: 
-  cardText: 
-  effectType: 0
-  effectValue: 0
-  isUnique: 0
-  unlockLevel: 0
+  cardImage: {fileID: 804698027, guid: 05d90aadbef2e5f4dad11bfc831131bb, type: 3}
+  cardName: +Extra MaxHP
+  cardText: +100
+  effectType: 1
+  effectValue: 100
+  isUnique: 1
+  unlockLevel: 5

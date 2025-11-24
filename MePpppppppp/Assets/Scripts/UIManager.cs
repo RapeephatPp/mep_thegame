@@ -21,6 +21,9 @@ public class UIManager : MonoBehaviour
     [Header("Pause UI")]
     [SerializeField] private GameObject pausePanel;
     
+    [Header("Death UI")]
+    [SerializeField] private GameObject deathPanel;
+    
     private void Start()
     {
         // Player HP (ถ้ามี)
@@ -47,6 +50,10 @@ public class UIManager : MonoBehaviour
 
         if (pausePanel != null)
             pausePanel.SetActive(false);
+        
+        if (deathPanel != null)
+            deathPanel.SetActive(false);
+        
     }
     //Pause UI
     public void TogglePausePanel(bool show)
@@ -54,7 +61,14 @@ public class UIManager : MonoBehaviour
         if (pausePanel != null)
             pausePanel.SetActive(show);
     }
-
+    
+    //Death UI
+    public void ToggleDeathPanel(bool show)
+    {
+        if (deathPanel != null)
+            deathPanel.SetActive(show);
+    }
+    
     // ---------- Health ----------
     public void UpdateHealthBar(float current, float max)
     {
