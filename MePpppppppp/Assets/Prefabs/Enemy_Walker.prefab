@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3617023734444864938}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.521, z: 0}
+  m_LocalPosition: {x: 0, y: -0.244, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61,8 +61,8 @@ Transform:
   m_GameObject: {fileID: 4708424347522212785}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: -0.031492963, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6876280038985911089}
@@ -112,8 +112,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -3048005803034922829, guid: d1708afb1bf1cb243b44321424a10d0b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 3720542810228805593, guid: d508794cb8caf1d47835704bbd1b785a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -157,17 +157,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0055523813, y: 0.052488267}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.9, y: 2.15}
+    oldSize: {x: 1.21, y: 0.48}
     newSize: {x: 2.9, y: 2.15}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.209629, y: 0.62553775}
   m_EdgeRadius: 0
 --- !u!50 &4432431304656067408
 Rigidbody2D:
@@ -225,7 +225,7 @@ Animator:
   m_GameObject: {fileID: 4708424347522212785}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f03af9872ef0f994a87a1baebef47b48, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8996a3a84cd0bdc4aa154b56d30b07df, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
