@@ -14,26 +14,37 @@ public class OptionsManager : MonoBehaviour
 
     void OnEnable()
     {
-        float bgm = PlayerPrefs.GetFloat(BGM_KEY, 0.8f);
-        float sfx = PlayerPrefs.GetFloat(SFX_KEY, 0.8f);
+        float bgm = PlayerPrefs.GetFloat(BGM_KEY, 1f);
+        float sfx = PlayerPrefs.GetFloat(SFX_KEY, 1f);
+
         if (bgmSlider) bgmSlider.value = bgm;
         if (sfxSlider) sfxSlider.value = sfx;
+
+        if (AudioManager.Instance)
+        {
+            AudioManager.Instance.SetBGMVolume(bgm);
+            AudioManager.Instance.SetSFXVolume(sfx);
+        }
+
         RefreshLabels();
-        AudioListener.volume = bgm; // ตัวอย่างง่าย ๆ ใช้รวม ถ้าจะละเอียดแยก Mixer ค่อยต่อยอด
     }
 
     public void OnChangeBGM(float v)
     {
         PlayerPrefs.SetFloat(BGM_KEY, v);
-        AudioListener.volume = v;
+        if (AudioManager.Instance)
+            AudioManager.Instance.SetBGMVolume(v);
         RefreshLabels();
     }
 
     public void OnChangeSFX(float v)
     {
         PlayerPrefs.SetFloat(SFX_KEY, v);
+        if (AudioManager.Instance)
+            AudioManager.Instance.SetSFXVolume(v);
         RefreshLabels();
     }
+
 
     void RefreshLabels()
     {

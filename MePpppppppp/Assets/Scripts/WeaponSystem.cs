@@ -15,6 +15,9 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] private float fireCooldown = 0.3f;
     [SerializeField] private int maxAmmo = 10;
     
+    [Header("Audio")]
+    [SerializeField] private AudioClip shootSfx;
+    
     public Transform FirePoint => firePoint;
     public float BulletSpeed => bulletSpeed;
     public int BulletDamage => bulletDamage;
@@ -49,6 +52,9 @@ public class WeaponSystem : MonoBehaviour
 
         nextFireTime = Time.time + fireCooldown;
         currentAmmo--;
+        
+        if (AudioManager.Instance)
+            AudioManager.Instance.PlaySFX(shootSfx);
 
         // Screen Shake (เบาลง)
         StartCoroutine(CameraShake.Instance.Shake(0.04f, 0.04f));
