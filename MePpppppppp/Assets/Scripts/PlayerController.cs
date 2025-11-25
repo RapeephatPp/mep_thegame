@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
     
+    [Header("Mode")]
+    [SerializeField] private bool canShoot = true;  
+    
     private bool isGrounded;
     private Animator animator;
     private Rigidbody2D rb;
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
         sr = GetComponent<SpriteRenderer>();
         weapon = GetComponent<WeaponSystem>();
+        
 
         // อัปเดต UI ตอนเริ่ม
         if (PlayerHealth.Instance != null && UIManager.Instance != null)
@@ -49,10 +53,15 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsWalking", IsWalking);
 
         /*// เดินจริง ๆ
+         
         Debug.Log("IsWalking = " + IsWalking);*/
-
+        
+        if (canShoot)
+        {
+            HandleAimingAndShooting();   // เฉพาะตัวที่ยิงได้เท่านั้น
+        }
+        
         HandleMovement(move);
-        HandleAimingAndShooting();
         CheckGround();
         
     }
@@ -60,6 +69,18 @@ public class PlayerController : MonoBehaviour
     private void HandleMovement(float move)
     {
         rb.linearVelocity = new Vector2(move * moveSpeed, rb.linearVelocity.y);
+        
+        if (!canShoot && sr != null)
+        {
+            if (move > 0.01f)
+            {
+                sr.flipX = false;   // หันขวา
+            }
+            else if (move < -0.01f)
+            {
+                sr.flipX = true;    // หันซ้าย
+            }
+        }
     }
 
     

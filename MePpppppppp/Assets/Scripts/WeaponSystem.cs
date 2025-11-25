@@ -28,6 +28,7 @@ public class WeaponSystem : MonoBehaviour
     private float nextFireTime = 0f;
     private bool isReloading = false;
     public GameObject muzzleFlashPrefab;
+    
 
     private void Awake()
     {

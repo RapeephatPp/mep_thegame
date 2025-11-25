@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: fd4fe48982293c541a17dd3c20502e20
+guid: 5fac9ede5da754749b19df7fd2346614
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5830065349827247016
-    second: Lumina_Walk_1_SS_0
-  - first:
-      213: -7029296452397029684
-    second: Lumina_Walk_1_SS_1
-  - first:
-      213: 795086943076460443
-    second: Lumina_Walk_1_SS_2
-  - first:
-      213: 4030786256764002042
-    second: Lumina_Walk_1_SS_3
+      213: -1600543925946753641
+    second: Tree_1_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -109,89 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk_1_SS_0
+      name: Tree_1_1_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 66
-        height: 108
-      alignment: 9
-      pivot: {x: 0.53030306, y: 0.5}
+        x: 10
+        y: 2
+        width: 118
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 253eaa354d527c046be439653eed57d0
-      internalID: 257875187
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_1_SS_1
-      rect:
-        serializedVersion: 2
-        x: 76
-        y: 1
-        width: 65
-        height: 108
-      alignment: 9
-      pivot: {x: 0.53846157, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 02be74a30914dc744aa24d4503e46534
-      internalID: -1146417164
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_1_SS_2
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 1
-        width: 66
-        height: 108
-      alignment: 9
-      pivot: {x: 0.54545456, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2edec0f558ab8ad4eb090ee781c94dd2
-      internalID: -477094415
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_1_SS_3
-      rect:
-        serializedVersion: 2
-        x: 226
-        y: 1
-        width: 65
-        height: 108
-      alignment: 9
-      pivot: {x: 0.53846157, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dd258d4f304c59646bcf8ac55d6196a1
-      internalID: -2086117087
+      spriteID: 79dd88687c9b9c9e0800000000000000
+      internalID: -1600543925946753641
       vertices: []
       indices: 
       edges: []
@@ -200,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4281c0b5f62f12b469bc5cc547079910
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Walk_1_SS_0: 257875187
-      Walk_1_SS_1: -1146417164
-      Walk_1_SS_2: -477094415
-      Walk_1_SS_3: -2086117087
+      Tree_1_1_0: -1600543925946753641
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

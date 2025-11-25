@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: a0dd1530169eb6244a4f54208dcb8a02
+guid: 861eecf8b04814d4fa1762c721854a26
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8159100923024199137
-    second: Lumina_Idle_SS_0
-  - first:
-      213: 53658856611475328
-    second: Lumina_Idle_SS_1
-  - first:
-      213: 1331907075287720668
-    second: Lumina_Idle_SS_2
-  - first:
-      213: -402918884888195567
-    second: Lumina_Idle_SS_3
+      213: 6566039111625627849
+    second: Fade_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -109,89 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lumina_Idle_SS_0
+      name: Fade_1_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 0
-        width: 51
-        height: 110
+        width: 1920
+        height: 1080
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f12b49470fc05ce80800000000000000
-      internalID: -8159100923024199137
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lumina_Idle_SS_1
-      rect:
-        serializedVersion: 2
-        x: 53
-        y: 0
-        width: 51
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 08f616f1272aeb000800000000000000
-      internalID: 53658856611475328
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lumina_Idle_SS_2
-      rect:
-        serializedVersion: 2
-        x: 105
-        y: 0
-        width: 51
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cd2aa50ad62eb7210800000000000000
-      internalID: 1331907075287720668
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Lumina_Idle_SS_3
-      rect:
-        serializedVersion: 2
-        x: 157
-        y: 0
-        width: 51
-        height: 110
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 11e41f0b86b886af0800000000000000
-      internalID: -402918884888195567
+      spriteID: 9c854cd98c14f1b50800000000000000
+      internalID: 6566039111625627849
       vertices: []
       indices: 
       edges: []
@@ -200,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 878710b1a7fff044c86dafa45836faf5
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Lumina_Idle_SS_0: -8159100923024199137
-      Lumina_Idle_SS_1: 53658856611475328
-      Lumina_Idle_SS_2: 1331907075287720668
-      Lumina_Idle_SS_3: -402918884888195567
+      Fade_1_0: 6566039111625627849
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
