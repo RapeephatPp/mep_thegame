@@ -8,6 +8,11 @@ public class PlayerHealth : Character, IDamageable
     [SerializeField, Range(0f,1f)] private float lastStandHpPercent = 0.3f;   
     [SerializeField] private float lastStandDamageMultiplier = 0.6f;         
     
+    [Header("Audio")]
+    [SerializeField] private AudioClip hurtClip;
+    [SerializeField] private AudioClip deathClip;
+
+    
     private void Awake()
     {
         Instance = this;
@@ -24,6 +29,9 @@ public class PlayerHealth : Character, IDamageable
         {
             damage *= lastStandDamageMultiplier;
         }
+        
+        if (AudioManager.Instance != null && hurtClip != null)
+            AudioManager.Instance.PlaySFX(hurtClip, 0.95f, 1.05f);
 
         base.TakeDamage(damage);
 
@@ -66,7 +74,10 @@ public class PlayerHealth : Character, IDamageable
     }
 
     protected override void Die()
-    {
+    {   
+        if (AudioManager.Instance != null && deathClip != null)
+            AudioManager.Instance.PlaySFX(deathClip);
+        
         Debug.Log("Player Died!");
         GameManager.Instance.OnPlayerDeath();
     }

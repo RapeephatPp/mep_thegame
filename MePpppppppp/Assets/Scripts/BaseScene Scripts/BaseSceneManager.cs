@@ -10,14 +10,15 @@ public class BaseSceneManager : MonoBehaviour
     [Header("Scenes")]
     [SerializeField] private string battleSceneName = "SampleScene"; // ชื่อฉากต่อสู้หลัก
     
-    public AudioClip baseBGM;
+    [Header("Audio")]
+    [SerializeField] private AudioClip baseBGM;
     
     private void Start()
     {
-        SpawnPlayerAndApplyStats();
-        
-        if (AudioManager.Instance)
+        if (AudioManager.Instance != null)
             AudioManager.Instance.PlayBGM(baseBGM, true);
+
+        SpawnPlayerAndApplyStats();
         
         if (UIManager.Instance != null)
         {

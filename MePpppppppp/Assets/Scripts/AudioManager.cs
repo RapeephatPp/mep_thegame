@@ -8,32 +8,35 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource sfxSource;
 
-    const string BGM_KEY = "vol_bgm";
-    const string SFX_KEY = "vol_sfx";
+    private const string BGM_KEY = "vol_bgm";
+    private const string SFX_KEY = "vol_sfx";
 
-    void Awake()
+    private void Awake()
     {
+        // ทำเป็น Singleton + อยู่ข้าม Scene
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // โหลดค่า volume จาก PlayerPrefs
-        float bgm = PlayerPrefs.GetFloat(BGM_KEY, 1f);
-        float sfx = PlayerPrefs.GetFloat(SFX_KEY, 1f);
+        float bgm = PlayerPrefs.GetFloat(BGM_KEY, 0.8f);
+        float sfx = PlayerPrefs.GetFloat(SFX_KEY, 0.8f);
         SetBGMVolume(bgm);
         SetSFXVolume(sfx);
     }
 
-    // --------- BGM ----------
+    // ------------ BGM ------------
     public void PlayBGM(AudioClip clip, bool loop = true)
     {
         if (!bgmSource || clip == null) return;
 
-        if (bgmSource.clip == clip && bgmSource.isPlaying) return;
+        // ถ้าเล่นเพลงเดิมอยู่แล้ว ไม่ต้องสวิตช์
+        if (bgmSource.clip == clip && bgmSource.isPlaying)
+            return;
 
         bgmSource.clip = clip;
         bgmSource.loop = loop;
@@ -45,26 +48,29 @@ public class AudioManager : MonoBehaviour
         if (bgmSource) bgmSource.Stop();
     }
 
-    public void SetBGMVolume(float v)
+    public void SetBGMVolume(float value)
     {
         if (!bgmSource) return;
-        v = Mathf.Clamp01(v);
-        bgmSource.volume = v;
-        PlayerPrefs.SetFloat(BGM_KEY, v);
+        value = Mathf.Clamp01(value);
+        bgmSource.volume = value;
+        PlayerPrefs.SetFloat(BGM_KEY, value);
     }
 
-    // --------- SFX ----------
-    public void PlaySFX(AudioClip clip)
+    // ------------ SFX ------------
+    public void PlaySFX(AudioClip clip, float pitchMin = 1f, float pitchMax = 1f)
     {
         if (!sfxSource || clip == null) return;
-        sfxSource.PlayOneShot(clip);      // ใช้ volume จาก sfxSource.volume
+
+        float p = Random.Range(pitchMin, pitchMax);
+        sfxSource.pitch = p;
+        sfxSource.PlayOneShot(clip);
     }
 
-    public void SetSFXVolume(float v)
+    public void SetSFXVolume(float value)
     {
         if (!sfxSource) return;
-        v = Mathf.Clamp01(v);
-        sfxSource.volume = v;
-        PlayerPrefs.SetFloat(SFX_KEY, v);
+        value = Mathf.Clamp01(value);
+        sfxSource.volume = value;
+        PlayerPrefs.SetFloat(SFX_KEY, value);
     }
 }

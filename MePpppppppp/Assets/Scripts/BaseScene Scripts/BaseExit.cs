@@ -4,6 +4,9 @@ public class BaseExit : MonoBehaviour
 {
     [SerializeField] private BaseSceneManager baseManager;
     [SerializeField] private KeyCode useKey = KeyCode.E;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioClip useDoorClip;
 
     private bool playerInZone;
 
@@ -24,7 +27,10 @@ public class BaseExit : MonoBehaviour
     {
         if (!playerInZone) return;
         if (Input.GetKeyDown(useKey) && baseManager != null)
-        {
+        {   
+            if (AudioManager.Instance != null && useDoorClip != null)
+                AudioManager.Instance.PlaySFX(useDoorClip);
+            
             baseManager.ReturnToBattle();
         }
     }

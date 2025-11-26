@@ -12,7 +12,10 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Scene")]
     [SerializeField] private string gameSceneName = "SampleScene";
-
+    
+    [Header("BGM")]
+    [SerializeField] private AudioClip mainMenuBGM;
+    
     [Header("Audio (optional)")]
     [SerializeField] private AudioSource uiAudio;
     [SerializeField] private AudioClip hoverClip;
@@ -24,6 +27,10 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayBGM(mainMenuBGM, true);
+        
         // เริ่มด้วย mainPanel เฟดเข้า
         ShowPanel(mainPanel, true, instant:true);
         StartCoroutine(FadeIn(mainPanel, fadeTime));

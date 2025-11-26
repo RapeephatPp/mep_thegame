@@ -1,9 +1,13 @@
 using UnityEngine;
 
 public class HealZone : MonoBehaviour
-{
+{   
+    [Header("Heal Zone")]
     [SerializeField] private int healAmount = 5;
     [SerializeField] private float interval = 0.5f;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioClip healClip;
 
     private float timer;
 
@@ -17,6 +21,9 @@ public class HealZone : MonoBehaviour
         {
             timer = 0f;
             PlayerHealth.Instance.Heal(healAmount);
+            
+            if (AudioManager.Instance != null && healClip != null)
+                AudioManager.Instance.PlaySFX(healClip, 0.95f, 1.05f);
         }
     }
 

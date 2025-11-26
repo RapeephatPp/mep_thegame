@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class BaseController : MonoBehaviour, IDamageable
 {   
+    [Header("Audio")]
+    [SerializeField] private AudioClip baseHitClip;
+    [SerializeField] private AudioClip baseDestroyedClip;
     public static BaseController Instance { get; private set; }
     
     private int maxHealth = 1000;
@@ -38,7 +41,10 @@ public class BaseController : MonoBehaviour, IDamageable
     {
         currentHealth -= Mathf.RoundToInt(amount);
         Debug.Log($"Base took {amount} damage. HP: {currentHealth}");
-
+        
+        if (AudioManager.Instance != null && baseHitClip != null)
+            AudioManager.Instance.PlaySFX(baseHitClip, 0.95f, 1.05f);
+        
         // อัปเดต UI
         if (UIManager.Instance != null)
             UIManager.Instance.UpdateBaseHealth(currentHealth, maxHealth);

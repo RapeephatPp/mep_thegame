@@ -12801,6 +12801,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7957573046723660192, guid: c61fdadb68c7b1d4a91d5586b710e888, type: 3}
+      propertyPath: shootSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 5afd3d27fcd8a53429f0e7268d630899, type: 3}
     - target: {fileID: 8362210543571347624, guid: c61fdadb68c7b1d4a91d5586b710e888, type: 3}
       propertyPath: m_Color.b
       value: 0.6037736

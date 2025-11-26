@@ -22,6 +22,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeBetweenSpawns = 1.2f;
     [SerializeField] private int baseEnemyCount = 5;
     
+    [Header("Audio")]
+    [SerializeField] private AudioClip battleBGM;
+    [SerializeField] private AudioClip waveStartClip;
+    [SerializeField] private AudioClip waveClearClip;
+    [SerializeField] private AudioClip pauseClip;
+    [SerializeField] private AudioClip resumeClip;
+    [SerializeField] private AudioClip gameOverClip;
     
     public GameState CurrentGameState { get; private set; } = GameState.Running;
     public BaseController BaseCtrl => baseCtrl;
@@ -39,6 +46,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {   
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayBGM(battleBGM, true);
+        
         if (RunData.HasData)
         {
             LoadRunData();
@@ -64,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     // ---------- เวฟ ----------
     void StartNextWave()
-    {
+    {   
         if (waveRoutine != null) StopCoroutine(waveRoutine);
         waitingForCard = false;
         CurrentGameState = GameState.Running;
@@ -81,6 +91,9 @@ public class GameManager : MonoBehaviour
         }
 
         waveRoutine = StartCoroutine(SpawnWave());
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(waveStartClip, 0.95f, 1.05f);
     }
 
     IEnumerator SpawnWave()
@@ -117,6 +130,10 @@ public class GameManager : MonoBehaviour
         if (!isSpawning && aliveEnemies <= 0 && CurrentGameState == GameState.Running && !waitingForCard)
         {
             Debug.Log("Wave cleared!");
+            
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySFX(waveClearClip, 0.95f, 1.05f);
+            
             ShowCardSelection();
         }
     }
@@ -171,7 +188,10 @@ public class GameManager : MonoBehaviour
 
         if (UIManager.Instance != null)
             UIManager.Instance.TogglePausePanel(true);
-
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(pauseClip);
+        
         Debug.Log("Game Paused");
     }
     public void ResumeGame()
@@ -181,6 +201,9 @@ public class GameManager : MonoBehaviour
 
         if (UIManager.Instance != null)
             UIManager.Instance.TogglePausePanel(false);
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(resumeClip);
 
         Debug.Log("Game Resumed");
     }
@@ -271,6 +294,9 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.ToggleDeathPanel(true);    // ⭐ เปิด Death UI
         }
         
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(gameOverClip);
+        
         Debug.Log("Game over: Player Died");
     }
     public void OnBaseDestroyed()
@@ -284,6 +310,9 @@ public class GameManager : MonoBehaviour
             UIManager.Instance.TogglePausePanel(false);
             UIManager.Instance.ToggleDeathPanel(true);    // ⭐ เปิด Death UI
         }
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(gameOverClip);
         
         Debug.Log("Game over: Base Destroyed");
     }

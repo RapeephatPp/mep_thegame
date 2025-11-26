@@ -16,7 +16,9 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] private int maxAmmo = 10;
     
     [Header("Audio")]
-    [SerializeField] private AudioClip shootSfx;
+    [SerializeField] private AudioClip shootClip;
+    [SerializeField] private AudioClip reloadClip;
+    [SerializeField] private AudioClip emptyClip;
     
     public Transform FirePoint => firePoint;
     public float BulletSpeed => bulletSpeed;
@@ -45,7 +47,11 @@ public class WeaponSystem : MonoBehaviour
             return;
 
         if (currentAmmo <= 0)
-        {
+        {   
+            
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySFX(emptyClip, 0.9f, 1.1f);
+            
             StartCoroutine(Reload());
             return;
         }
@@ -53,11 +59,11 @@ public class WeaponSystem : MonoBehaviour
         nextFireTime = Time.time + fireCooldown;
         currentAmmo--;
         
-        if (AudioManager.Instance)
-            AudioManager.Instance.PlaySFX(shootSfx);
-
         // Screen Shake (เบาลง)
         StartCoroutine(CameraShake.Instance.Shake(0.04f, 0.04f));
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(shootClip, 0.95f, 1.05f);
         
 
         // --------- Muzzle Flash ---------
@@ -87,6 +93,9 @@ public class WeaponSystem : MonoBehaviour
     {
         if (isReloading) yield break;
         isReloading = true;
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(reloadClip);
         
         float timer = 0f;
         while (timer < reloadTime)

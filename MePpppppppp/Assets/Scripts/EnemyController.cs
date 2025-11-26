@@ -8,6 +8,12 @@ public class EnemyController : Character, IDamageable
     [SerializeField] private float attackCooldown = 1f;
     [SerializeField] private float attackRange = 1.5f;
     
+    [Header("Audio")]
+    [SerializeField] private AudioClip hurtClip;
+    [SerializeField] private AudioClip attackClip;
+    [SerializeField] private AudioClip deathClip;
+
+    
     public Transform targetBase;
     private Rigidbody2D rb;
     private Transform playerTarget;
@@ -61,15 +67,29 @@ public class EnemyController : Character, IDamageable
     {
         if (Time.time < nextAttackTime) return;
         nextAttackTime = Time.time + attackCooldown;
+        
+        if (AudioManager.Instance != null && attackClip != null)
+            AudioManager.Instance.PlaySFX(attackClip, 0.95f, 1.05f);
 
         if (target.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage(attackDamage);
         }
     }
+    
+    public override void TakeDamage(float damage)
+    {
+        if (AudioManager.Instance != null && hurtClip != null)
+            AudioManager.Instance.PlaySFX(hurtClip, 0.95f, 1.05f);
 
+        base.TakeDamage(damage);
+    }
+    
     protected override void Die()
     {   
+        if (AudioManager.Instance != null && deathClip != null)
+            AudioManager.Instance.PlaySFX(deathClip, 0.95f, 1.05f);
+        
         Debug.Log($"{name} died!");
         
         GameManager.Instance.RegisterEnemyDeath();

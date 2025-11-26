@@ -10,8 +10,11 @@ public class CardManager : MonoBehaviour
     [SerializeField] private Transform cardSlot1;
     [SerializeField] private Transform cardSlot2;
     [SerializeField] private Transform cardSlot3;
-
     [SerializeField] private GameObject cardUIPrefab;
+    
+    [Header("Audio")]
+    [SerializeField] private AudioClip cardShowClip;
+    [SerializeField] private AudioClip cardSelectClip;
 
     private readonly List<CardSO> alreadySelectedCards = new List<CardSO>();
     public static CardManager Instance;
@@ -27,7 +30,7 @@ public class CardManager : MonoBehaviour
         foreach (Transform child in cardSlot1) Destroy(child.gameObject);
         foreach (Transform child in cardSlot2) Destroy(child.gameObject);
         foreach (Transform child in cardSlot3) Destroy(child.gameObject);
-
+        
         // สุ่มการ์ด 3 ใบ
         var randomizedCards = GetRandomCards(3);
         if (randomizedCards.Count < 3)
@@ -36,10 +39,13 @@ public class CardManager : MonoBehaviour
             return;
         }
 
-        // สร้าง UI สำหรับแต่ละใบ
+        // Create UI for each Card
         CreateCardUI(randomizedCards[0], cardSlot1);
         CreateCardUI(randomizedCards[1], cardSlot2);
         CreateCardUI(randomizedCards[2], cardSlot3);
+        
+        if (AudioManager.Instance != null && cardShowClip != null)
+            AudioManager.Instance.PlaySFX(cardShowClip);
     }
 
     private void CreateCardUI(CardSO cardData, Transform slot)
@@ -54,7 +60,7 @@ public class CardManager : MonoBehaviour
     {
         var available = new List<CardSO>();
 
-        // wave ปัจจุบัน (ถ้าเผื่อไม่มี GameManager ให้ใช้ 1)
+        // Current wave
         int currentWave = 1;
         if (GameManager.Instance != null)
             currentWave = GameManager.Instance.CurrentWave;
@@ -111,7 +117,10 @@ public class CardManager : MonoBehaviour
 
         selectedCard.ApplyCardEffect(); // ✅ ใช้การ์ดจริง
         Debug.Log("Card selected: " + selectedCard.cardName);
-
+        
+        if (AudioManager.Instance != null && cardSelectClip != null)
+            AudioManager.Instance.PlaySFX(cardSelectClip);
+        
         OnCardPicked(); // ✅ ปิด UI และเริ่ม wave ต่อไป
     }
     
