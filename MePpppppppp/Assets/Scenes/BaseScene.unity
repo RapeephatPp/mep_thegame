@@ -1130,6 +1130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healAmount: 5
   interval: 0.5
+  healClip: {fileID: 0}
 --- !u!61 &301005999
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1314,6 +1315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseManager: {fileID: 549868624}
   useKey: 101
+  useDoorClip: {fileID: 0}
 --- !u!212 &312682272
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2370,7 +2372,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 6482075837855834329, guid: e74a6edd90d1ec04197564dc0dc84a7c, type: 3}
   playerSpawnPoint: {fileID: 162300732}
   battleSceneName: SampleScene
-  baseBGM: {fileID: 0}
+  baseBGM: {fileID: 8300000, guid: bdacbd52a0e7c7d4cb20c4b76020cb97, type: 3}
 --- !u!4 &549868625
 Transform:
   m_ObjectHideFlags: 0

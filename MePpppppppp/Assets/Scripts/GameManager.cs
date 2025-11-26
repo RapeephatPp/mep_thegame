@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     
     [Header("Audio")]
     [SerializeField] private AudioClip battleBGM;
+    [SerializeField] private AudioClip battleAmbience;
     [SerializeField] private AudioClip waveStartClip;
     [SerializeField] private AudioClip waveClearClip;
     [SerializeField] private AudioClip pauseClip;
@@ -48,6 +49,9 @@ public class GameManager : MonoBehaviour
     {   
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlayBGM(battleBGM, true);
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayBGM(battleAmbience, true);
         
         if (RunData.HasData)
         {
