@@ -16,7 +16,7 @@ public class MainMenuManager : MonoBehaviour
     [Header("BGM")]
     [SerializeField] private AudioClip mainMenuBGM;
     
-    [Header("Audio (optional)")]
+    [Header("Audio")]
     [SerializeField] private AudioSource uiAudio;
     [SerializeField] private AudioClip hoverClip;
     [SerializeField] private AudioClip clickClip;

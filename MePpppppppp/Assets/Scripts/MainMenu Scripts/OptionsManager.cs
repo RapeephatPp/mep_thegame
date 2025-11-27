@@ -8,7 +8,7 @@ public class OptionsManager : MonoBehaviour
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private TextMeshProUGUI bgmLabel;
     [SerializeField] private TextMeshProUGUI sfxLabel;
-
+    
     const string BGM_KEY = "vol_bgm";
     const string SFX_KEY = "vol_sfx";
 
@@ -31,7 +31,9 @@ public class OptionsManager : MonoBehaviour
     }
 
     public void OnChangeBGM(float v)
-    {
+    {   
+        Debug.Log("Change BGM: " + v);
+        
         PlayerPrefs.SetFloat(BGM_KEY, v);
 
         if (AudioManager.Instance != null)
@@ -41,7 +43,9 @@ public class OptionsManager : MonoBehaviour
     }
 
     public void OnChangeSFX(float v)
-    {
+    {   
+        Debug.Log("Change SFX: " + v);
+        
         PlayerPrefs.SetFloat(SFX_KEY, v);
 
         if (AudioManager.Instance != null)

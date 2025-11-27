@@ -59,7 +59,12 @@ public class AudioManager : MonoBehaviour
     // ------------ SFX ------------
     public void PlaySFX(AudioClip clip, float pitchMin = 1f, float pitchMax = 1f)
     {
-        if (!sfxSource || clip == null) return;
+        if (clip == null || sfxSource == null) return;
+        if (!sfxSource.isActiveAndEnabled)    // เพิ่มเช็คว่ามันถูก disable ไหม
+        {
+            Debug.LogWarning("SFX source is disabled or inactive on " + sfxSource.gameObject.name);
+            return;
+        }
 
         float p = Random.Range(pitchMin, pitchMax);
         sfxSource.pitch = p;

@@ -459,6 +459,8 @@ MonoBehaviour:
   currentHealth: 0
   lastStandHpPercent: 0.3
   lastStandDamageMultiplier: 0.6
+  hurtClip: {fileID: 8300000, guid: c20480b170436da48ae6d840b4579163, type: 3}
+  deathClip: {fileID: 8300000, guid: 98d82f51ed8cb364c95d3c52228e1526, type: 3}
 --- !u!114 &7957573046723660192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +479,10 @@ MonoBehaviour:
   bulletDamage: 25
   fireCooldown: 0.3
   maxAmmo: 10
+  shootClip: {fileID: 8300000, guid: 5afd3d27fcd8a53429f0e7268d630899, type: 3}
+  reloadClip1: {fileID: 8300000, guid: 7e44a84842cb39c4992f4517f64f64c4, type: 3}
+  reloadClip2: {fileID: 8300000, guid: e5f4fe6d40d5a2746a9760b527b75f90, type: 3}
+  emptyClip: {fileID: 8300000, guid: b320c0b0e3af469418f4f7e3787982eb, type: 3}
   reloadTime: 2
   muzzleFlashPrefab: {fileID: 3558129166588833348, guid: c4e67d3fb0cc32e449f83a530fa7de91, type: 3}
 --- !u!114 &3828199697484053109

@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip pauseClip;
     [SerializeField] private AudioClip resumeClip;
     [SerializeField] private AudioClip gameOverClip;
+    [SerializeField] private AudioClip openDoorClip;
     
     public GameState CurrentGameState { get; private set; } = GameState.Running;
     public BaseController BaseCtrl => baseCtrl;
@@ -48,9 +49,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {   
         if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayBGM(battleBGM, true);
-        
-        if (AudioManager.Instance != null)
             AudioManager.Instance.PlayBGM(battleAmbience, true);
         
         if (RunData.HasData)
@@ -58,6 +56,8 @@ public class GameManager : MonoBehaviour
             LoadRunData();
         }
         
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayBGM(battleBGM, true);
         StartNextWave(); // เริ่มเวฟแรก
     }
     
@@ -173,6 +173,9 @@ public class GameManager : MonoBehaviour
             if (SceneFader.Instance != null)
                 SceneFader.Instance.FadeToScene(baseSceneName);
             else
+            
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlaySFX(openDoorClip, 0.95f, 1.05f);
                 SceneManager.LoadScene(baseSceneName);
         }
         else

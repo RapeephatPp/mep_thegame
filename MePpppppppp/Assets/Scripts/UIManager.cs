@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -42,7 +43,12 @@ public class UIManager : MonoBehaviour
             UpdateGameState("Running");
         }
     }
-    
+
+    private void Update()
+    {
+        UpdateHealthBar(PlayerHealth.Instance.CurrentHealth, PlayerHealth.Instance.MaxHealth);
+    }
+
     private void Awake()
     {
         Instance = this;
@@ -72,7 +78,7 @@ public class UIManager : MonoBehaviour
     // ---------- Health ----------
     public void UpdateHealthBar(float current, float max)
     {
-        Debug.Log($"[UIManager] UpdateHealthBar called: {current}/{max}");
+        /*Debug.Log($"[UIManager] UpdateHealthBar called: {current}/{max}");*/
         if (healthBar != null)
             healthBar.fillAmount = current / max;
         else

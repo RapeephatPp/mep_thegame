@@ -214,6 +214,9 @@ MonoBehaviour:
   attackDamage: 20
   attackCooldown: 1
   attackRange: 1.5
+  hurtClip: {fileID: 8300000, guid: a52e6c82df6b4234c9560968587934cc, type: 3}
+  attackClip: {fileID: 8300000, guid: 8917b6772c24f5d4aa46e74ef17c0cef, type: 3}
+  deathClip: {fileID: 8300000, guid: e5441f122b9de7542ad58c2ec12badee, type: 3}
   targetBase: {fileID: 0}
 --- !u!95 &4954556436483421803
 Animator:

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Threading;
 
 public class WeaponSystem : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class WeaponSystem : MonoBehaviour
     
     [Header("Audio")]
     [SerializeField] private AudioClip shootClip;
-    [SerializeField] private AudioClip reloadClip;
+    [SerializeField] private AudioClip reloadClip1;
+    [SerializeField] private AudioClip reloadClip2;
     [SerializeField] private AudioClip emptyClip;
     
     public Transform FirePoint => firePoint;
@@ -59,7 +61,7 @@ public class WeaponSystem : MonoBehaviour
         nextFireTime = Time.time + fireCooldown;
         currentAmmo--;
         
-        // Screen Shake (เบาลง)
+        // Screen Shake
         StartCoroutine(CameraShake.Instance.Shake(0.04f, 0.04f));
         
         if (AudioManager.Instance != null)
@@ -95,18 +97,22 @@ public class WeaponSystem : MonoBehaviour
         isReloading = true;
         
         if (AudioManager.Instance != null)
-            AudioManager.Instance.PlaySFX(reloadClip);
+            AudioManager.Instance.PlaySFX(reloadClip1);
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(reloadClip2);
         
         float timer = 0f;
         while (timer < reloadTime)
-        {
+        {   
             timer += Time.deltaTime;
+            
             if (UIManager.Instance != null)
                 UIManager.Instance.UpdateReload(timer / reloadTime);
-
+            
             yield return null;
         }
-
+        
         currentAmmo = maxAmmo;
         isReloading = false;
         UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
