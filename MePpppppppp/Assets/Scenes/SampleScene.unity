@@ -324,7 +324,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardSelectionUI: {fileID: 660930074}
   deck:
+  - {fileID: 11400000, guid: e49bff8aa4d19b0499978de90e9aeadb, type: 2}
   - {fileID: 11400000, guid: cdde07aacee54804d8aad21eaf592709, type: 2}
+  - {fileID: 11400000, guid: 789cdbe48d70b1849a8b1fd43817a3b8, type: 2}
   - {fileID: 11400000, guid: f59cc0b0bd0ac5d41bd6d5d0bf27c146, type: 2}
   - {fileID: 11400000, guid: 00a61f349790f2e4ea749e4ff242350c, type: 2}
   - {fileID: 11400000, guid: 0a324130821cc4b45bc3639fbe431119, type: 2}
@@ -332,7 +334,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8f1213945cb66943a3ff970f5d259aa, type: 2}
   - {fileID: 11400000, guid: 92fff274bd4d93d4bbdcd19a5e93e55e, type: 2}
   - {fileID: 11400000, guid: df94c49933081144e9af1452681792a3, type: 2}
+  - {fileID: 11400000, guid: b7fabb84e6a995d47ae4b89682a510f8, type: 2}
   - {fileID: 11400000, guid: 61ffe606963f98e4d88d8e046a27ed9d, type: 2}
+  - {fileID: 11400000, guid: 19632aabc0391fa409f0bffee23c6158, type: 2}
   cardSlot1: {fileID: 153035439}
   cardSlot2: {fileID: 448265929}
   cardSlot3: {fileID: 1074068075}
@@ -13286,6 +13290,14 @@ PrefabInstance:
       propertyPath: reloadClip2
       value: 
       objectReference: {fileID: 8300000, guid: e5f4fe6d40d5a2746a9760b527b75f90, type: 3}
+    - target: {fileID: 7957573046723660192, guid: c61fdadb68c7b1d4a91d5586b710e888, type: 3}
+      propertyPath: adrenalineDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957573046723660192, guid: c61fdadb68c7b1d4a91d5586b710e888, type: 3}
+      propertyPath: adrenalineMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

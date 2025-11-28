@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ExtraDamageIncrease
   m_EditorClassIdentifier: 
   cardImage: {fileID: -8547511005710410278, guid: d508794cb8caf1d47835704bbd1b785a, type: 3}
-  cardName: Special Damage
-  cardText: 
+  cardName: Red Ammo
+  cardText: '+45 Extra Damage '
   effectType: 0
-  effectValue: 0
-  isUnique: 0
+  effectValue: 45
+  isUnique: 1
   unlockLevel: 7

@@ -15,7 +15,7 @@ MonoBehaviour:
   cardImage: {fileID: 3305532829244979730, guid: a274b88ee29031f458755fccb7d8528a, type: 3}
   cardName: Shoot Faster
   cardText: +1 Bullet Speed
-  effectType: 5
+  effectType: 6
   effectValue: 1
   isUnique: 0
   unlockLevel: 0

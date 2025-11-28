@@ -15,7 +15,7 @@ MonoBehaviour:
   cardImage: {fileID: 1459248703195793451, guid: a274b88ee29031f458755fccb7d8528a, type: 3}
   cardName: More Ammo
   cardText: +3 Ammo Capacity
-  effectType: 7
+  effectType: 8
   effectValue: 3
   isUnique: 0
   unlockLevel: 0

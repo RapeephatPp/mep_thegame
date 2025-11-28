@@ -15,7 +15,7 @@ MonoBehaviour:
   cardImage: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   cardName: Far Away
   cardText: +0.3 Increase Bullet Range
-  effectType: 4
+  effectType: 5
   effectValue: 0.3
   isUnique: 0
   unlockLevel: 0

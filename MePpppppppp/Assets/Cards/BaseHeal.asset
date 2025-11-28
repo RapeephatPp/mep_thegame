@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851f97862ac43e8488554e891a4b93fa, type: 3}
   m_Name: BaseHeal
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 0}
-  cardName: 
-  cardText: 
-  effectType: 0
-  effectValue: 0
+  cardImage: {fileID: -3048005803034922829, guid: d1708afb1bf1cb243b44321424a10d0b, type: 3}
+  cardName: Fixing it
+  cardText: +500 Base Health
+  effectType: 4
+  effectValue: 500
   isUnique: 0
   unlockLevel: 0
