@@ -51,14 +51,18 @@ public class PlayerController : MonoBehaviour
         // animation
         bool IsWalking = Mathf.Abs(move) > 0.01f;
         animator.SetBool("IsWalking", IsWalking);
-
-        /*// เดินจริง ๆ
-         
+        
+        /* Is really Walk Check
         Debug.Log("IsWalking = " + IsWalking);*/
         
         if (canShoot)
         {
-            HandleAimingAndShooting();   // เฉพาะตัวที่ยิงได้เท่านั้น
+            HandleAimingAndShooting(); // Only Shootable
+            // R to Reload
+            if (Input.GetKeyDown(KeyCode.R) && weapon != null)
+            {
+                weapon.TryManualReload();
+            }
         }
         
         HandleMovement(move);

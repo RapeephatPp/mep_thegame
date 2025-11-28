@@ -127,6 +127,15 @@ public class WeaponSystem : MonoBehaviour
         UIManager.Instance.UpdateReload(0f);
     }
 
+    public void TryManualReload()
+    {
+        if (isReloading) return;
+        
+        if (currentAmmo >= maxAmmo) return;
+        
+        StartCoroutine(Reload());
+    }
+
     public void AddDamage(int amount)
     {
         bulletDamage += amount;
