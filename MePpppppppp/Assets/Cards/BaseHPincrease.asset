@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 851f97862ac43e8488554e891a4b93fa, type: 3}
-  m_Name: BaseHPincrease
+  m_Name: BaseHPIncrease
   m_EditorClassIdentifier: 
   cardImage: {fileID: -8159100923024199137, guid: a0dd1530169eb6244a4f54208dcb8a02, type: 3}
   cardName: +MaxBaseHP

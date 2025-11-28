@@ -27,6 +27,13 @@ public class BaseController : MonoBehaviour, IDamageable
         Instance = this;
         currentHealth = maxHealth;
     }
+    
+    public void HealBase(int amount)
+    {
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        Debug.Log($"Base healed by {amount}, current HP: {currentHealth}");
+        UIManager.Instance.UpdateBaseHealth(currentHealth, maxHealth);
+    }
 
     public void AddMaxHealth(int amount)
     {

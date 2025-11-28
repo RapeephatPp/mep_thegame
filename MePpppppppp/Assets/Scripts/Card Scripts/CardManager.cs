@@ -16,7 +16,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private AudioClip cardShowClip;
     [SerializeField] private AudioClip cardSelectClip;
 
-    private readonly List<CardSO> alreadySelectedCards = new List<CardSO>();
+    private static readonly List<CardSO> alreadySelectedCards = new List<CardSO>();
     public static CardManager Instance;
 
     private void Awake()
@@ -115,13 +115,13 @@ public class CardManager : MonoBehaviour
         if (selectedCard.isUnique && !alreadySelectedCards.Contains(selectedCard))
             alreadySelectedCards.Add(selectedCard);
 
-        selectedCard.ApplyCardEffect(); // ✅ ใช้การ์ดจริง
+        selectedCard.ApplyCardEffect(); 
         Debug.Log("Card selected: " + selectedCard.cardName);
         
         if (AudioManager.Instance != null && cardSelectClip != null)
             AudioManager.Instance.PlaySFX(cardSelectClip);
         
-        OnCardPicked(); // ✅ ปิด UI และเริ่ม wave ต่อไป
+        OnCardPicked();
     }
     
     public void OnCardPicked()

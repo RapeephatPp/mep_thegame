@@ -252,9 +252,17 @@ public class GameManager : MonoBehaviour
         if (WeaponSystem.Instance != null)
         {
             RunData.bulletDamage = WeaponSystem.Instance.BulletDamage;
-            RunData.bulletSpeed = WeaponSystem.Instance.BulletSpeed;
+            RunData.bulletSpeed  = WeaponSystem.Instance.BulletSpeed;
             RunData.fireCooldown = WeaponSystem.Instance.FireCooldown;
-            RunData.maxAmmo = WeaponSystem.Instance.MaxAmmo;
+            RunData.maxAmmo      = WeaponSystem.Instance.MaxAmmo;
+            RunData.reloadTime   = WeaponSystem.Instance.ReloadTime;
+
+            // ---- Special Effects ----
+            RunData.vampireShot        = WeaponSystem.Instance.HasVampireShot;
+            RunData.lifeStealAmount    = WeaponSystem.Instance.LifeStealAmount;
+            RunData.adrenalineRush     = WeaponSystem.Instance.HasAdrenalineRush;
+            RunData.adrenalineMultiplier = WeaponSystem.Instance.AdrenalineMultiplier;
+            RunData.adrenalineDuration   = WeaponSystem.Instance.AdrenalineDuration;
         }
     }
 
@@ -286,8 +294,19 @@ public class GameManager : MonoBehaviour
                 RunData.bulletDamage,
                 RunData.bulletSpeed,
                 RunData.fireCooldown,
-                RunData.maxAmmo
+                RunData.maxAmmo,
+                RunData.reloadTime
             );
+
+            // ---- Restore Special Effects ----
+            if (RunData.vampireShot)
+                WeaponSystem.Instance.EnableVampireShot(RunData.lifeStealAmount);
+
+            if (RunData.adrenalineRush)
+                WeaponSystem.Instance.EnableAdrenalineRush(
+                    RunData.adrenalineMultiplier,
+                    RunData.adrenalineDuration
+                );
         }
     }
 

@@ -51,11 +51,12 @@ public class BaseSceneManager : MonoBehaviour
                 weapon = player.GetComponentInChildren<WeaponSystem>();
             if (weapon != null)
             {
-                weapon.SetWeaponFromRun(
+                WeaponSystem.Instance.SetWeaponFromRun(
                     RunData.bulletDamage,
                     RunData.bulletSpeed,
                     RunData.fireCooldown,
-                    RunData.maxAmmo
+                    RunData.maxAmmo,
+                    RunData.reloadTime
                 );
             }
         }
@@ -73,10 +74,18 @@ public class BaseSceneManager : MonoBehaviour
         if (WeaponSystem.Instance != null)
         {
             RunData.bulletDamage = WeaponSystem.Instance.BulletDamage;
-            RunData.bulletSpeed = WeaponSystem.Instance.BulletSpeed;
+            RunData.bulletSpeed  = WeaponSystem.Instance.BulletSpeed;
             RunData.fireCooldown = WeaponSystem.Instance.FireCooldown;
-            RunData.maxAmmo = WeaponSystem.Instance.MaxAmmo;
+            RunData.maxAmmo      = WeaponSystem.Instance.MaxAmmo;
+            RunData.reloadTime   = WeaponSystem.Instance.ReloadTime;
+
+            RunData.vampireShot        = WeaponSystem.Instance.HasVampireShot;
+            RunData.lifeStealAmount    = WeaponSystem.Instance.LifeStealAmount;
+            RunData.adrenalineRush     = WeaponSystem.Instance.HasAdrenalineRush;
+            RunData.adrenalineMultiplier = WeaponSystem.Instance.AdrenalineMultiplier;
+            RunData.adrenalineDuration   = WeaponSystem.Instance.AdrenalineDuration;
         }
+
 
         if (SceneFader.Instance != null)
             SceneFader.Instance.FadeToScene(battleSceneName);

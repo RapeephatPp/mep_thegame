@@ -47,7 +47,9 @@ public class MainMenuManager : MonoBehaviour
 
     // ---------- Buttons ----------
     public void OnStartGame()
-    {
+    {   
+        RunData.Reset();
+        
         Play(clickClip);
         if (SceneFader.Instance != null)
         {

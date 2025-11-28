@@ -12,7 +12,9 @@ public class EnemyController : Character, IDamageable
     [SerializeField] private AudioClip hurtClip;
     [SerializeField] private AudioClip attackClip;
     [SerializeField] private AudioClip deathClip;
-
+    //Stun Effect
+    //private bool isStunned = false;
+    
     
     public Transform targetBase;
     private Rigidbody2D rb;
@@ -85,14 +87,21 @@ public class EnemyController : Character, IDamageable
     {
         if (AudioManager.Instance != null && hurtClip != null)
             AudioManager.Instance.PlaySFX(hurtClip, 0.95f, 1.05f);
-
+        
         base.TakeDamage(damage);
     }
+
+    
     
     protected override void Die()
     {   
         if (AudioManager.Instance != null && deathClip != null)
             AudioManager.Instance.PlaySFX(deathClip, 0.95f, 1.05f);
+
+        if (WeaponSystem.Instance != null && WeaponSystem.Instance.HasVampireShot)
+        {
+            PlayerHealth.Instance.Heal(WeaponSystem.Instance.LifeStealAmount);
+        }
         
         Debug.Log($"{name} died!");
         

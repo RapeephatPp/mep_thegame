@@ -171,7 +171,7 @@ TextureImporter:
       name: MainScene_1SS_2
       rect:
         serializedVersion: 2
-        x: 959
+        x: 960
         y: 0
         width: 480
         height: 270
@@ -193,9 +193,9 @@ TextureImporter:
       name: MainScene_1SS_3
       rect:
         serializedVersion: 2
-        x: 1438
+        x: 1440
         y: 0
-        width: 481
+        width: 480
         height: 270
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -237,7 +237,7 @@ TextureImporter:
       name: MainScene_1SS_5
       rect:
         serializedVersion: 2
-        x: 2401
+        x: 2400
         y: 0
         width: 479
         height: 270

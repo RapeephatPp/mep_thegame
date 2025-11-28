@@ -32,6 +32,11 @@ public class PlayerHealth : Character, IDamageable
         
         if (AudioManager.Instance != null && hurtClip != null)
             AudioManager.Instance.PlaySFX(hurtClip, 0.95f, 1.05f);
+        
+        if (WeaponSystem.Instance != null && WeaponSystem.Instance.HasAdrenalineRush)
+        {
+            WeaponSystem.Instance.TriggerAdrenaline();
+        }
 
         base.TakeDamage(damage);
 

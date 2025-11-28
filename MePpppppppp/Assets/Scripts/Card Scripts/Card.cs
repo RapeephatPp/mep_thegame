@@ -22,9 +22,8 @@ public class Card : MonoBehaviour
 
     public void OnCardSelected()
     {
-        ApplyEffect();
-        CardManager.Instance.OnCardPicked();
-        Destroy(gameObject);
+        CardManager.Instance.SelectCard(data);   // ให้ CardManager จัดการ apply + mark unique
+        Destroy(gameObject);   
     }
     
     private void ApplyEffect()
@@ -46,6 +45,10 @@ public class Card : MonoBehaviour
             case CardEffectType.Heal:
                 PlayerHealth.Instance.Heal((int)data.effectValue);
                 break;
+            
+            case CardEffectType.BaseHeal:
+                BaseController.Instance.HealBase((int)data.effectValue);
+                break;
 
             case CardEffectType.BulletRange:
                 BulletController.AddLifetime(data.effectValue);
@@ -61,6 +64,18 @@ public class Card : MonoBehaviour
 
             case CardEffectType.AmmoCapacity:
                 WeaponSystem.Instance.AddAmmoCapacity((int)data.effectValue);
+                break;
+            
+            case CardEffectType.ReloadSpeed:
+                WeaponSystem.Instance.AddReloadSpeed((int)data.effectValue);
+                break;
+            
+            case CardEffectType.VampireShot:
+                WeaponSystem.Instance.EnableVampireShot((int)data.effectValue);
+                break;
+            
+            case CardEffectType.AdrenalineRush:
+                WeaponSystem.Instance.EnableAdrenalineRush(data.effectValue, 3f);
                 break;
         }
 

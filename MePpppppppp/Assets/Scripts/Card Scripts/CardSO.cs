@@ -6,11 +6,15 @@ public enum CardEffectType
     HealthIncrease,
     FireRateIncrease,
     Heal,
+    BaseHeal,
     BulletRange,
     BulletSpeed,
     BaseHealthIncrease,
     AmmoCapacity,
-    
+    ReloadSpeed,
+    VampireShot,
+    ShockRound,
+    AdrenalineRush,
     
 }
 
@@ -40,6 +44,10 @@ public class CardSO : ScriptableObject
             case CardEffectType.Heal:
                 PlayerHealth.Instance.Heal((int)effectValue);
                 break;
+            
+            case CardEffectType.BaseHeal:
+                BaseController.Instance.HealBase((int)effectValue);
+                break;
 
             case CardEffectType.DamageIncrease:
                 weapon.AddDamage((int)effectValue);
@@ -64,6 +72,20 @@ public class CardSO : ScriptableObject
             case CardEffectType.AmmoCapacity:
                 weapon.AddAmmoCapacity((int)effectValue);
                 break;
+            
+            case CardEffectType.ReloadSpeed:
+                weapon.AddReloadSpeed((int)effectValue);
+                break;
+            
+            case CardEffectType.VampireShot:
+                weapon.EnableVampireShot((int)effectValue);
+                break;
+            
+            case CardEffectType.AdrenalineRush:
+                weapon.EnableAdrenalineRush(effectValue, 3f); // multiplier = effectValue, 3 s
+                break;
+            
+            
         }
 
         Debug.Log("Applied card: " + cardName);

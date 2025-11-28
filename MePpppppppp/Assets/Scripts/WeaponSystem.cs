@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Threading;
@@ -15,6 +16,20 @@ public class WeaponSystem : MonoBehaviour
     [Header("Fire / Reload")]
     [SerializeField] private float fireCooldown = 0.3f;
     [SerializeField] private int maxAmmo = 10;
+    [SerializeField] private float reloadTime = 2f;
+    
+    [Header("Special Effects")]
+    //VampireShot
+    [SerializeField] private bool vampireShot = false;
+    [SerializeField] private int lifeStealAmount = 0;
+    //AdenalineRush
+    [SerializeField] private bool adrenalineRush = false;
+    [SerializeField] private float adrenalineMultiplier = 1f;
+    [SerializeField] private float adrenalineDuration = 1f;
+    //ShockRound
+    /*[SerializeField] private bool shockRound = false;
+    [SerializeField] private float shockChance = 0f;
+    [SerializeField] private float shockDuration = 0f;*/
     
     [Header("Audio")]
     [SerializeField] private AudioClip shootClip;
@@ -27,9 +42,15 @@ public class WeaponSystem : MonoBehaviour
     public int BulletDamage => bulletDamage;
     public float FireCooldown => fireCooldown;
     public int MaxAmmo => maxAmmo;
+    public float ReloadTime => reloadTime; 
+    //Special Effect
+    public bool HasVampireShot => vampireShot;
+    public int LifeStealAmount => lifeStealAmount;
+    private bool adrenalineActive = false;
+    public bool HasAdrenalineRush => adrenalineRush;
+    public float AdrenalineMultiplier => adrenalineMultiplier;
+    public float AdrenalineDuration  => adrenalineDuration;
     
-
-    [SerializeField] private float reloadTime = 2f;
 
     private int currentAmmo;
     private float nextFireTime = 0f;
@@ -148,24 +169,78 @@ public class WeaponSystem : MonoBehaviour
 
     public void AddBulletSpeed(float amount)
     {
-        bulletSpeed += amount;
+        bulletSpeed = Mathf.Min(bulletSpeed + amount, 20f);
     }
 
     public void AddAmmoCapacity(int amount)
     {
+        if (amount <= 0)
+        {
+            Debug.LogWarning($"[Weapon] AddAmmoCapacity called with amount={amount}, skipped.");
+            return;
+        }
+
+        int oldMax = maxAmmo;
+        int oldCur = currentAmmo;
+
         maxAmmo += amount;
-        currentAmmo = amount;
-        
+        currentAmmo = maxAmmo;   // รีฟิลเต็มแม็กหลังอัปเกรด
+
+        Debug.Log($"[Weapon] AmmoCapacity +{amount} | {oldCur}/{oldMax} -> {currentAmmo}/{maxAmmo}");
+
         if (UIManager.Instance != null)
             UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
     }
+
+    public void AddReloadSpeed(float amount)
+    {
+        //Decrease Reload time but not lower than 0.3s
+        reloadTime = Math.Max(0.3f, reloadTime - amount);
+    }
+
+    public void EnableVampireShot(int healAmount)
+    {
+        vampireShot = true;
+        lifeStealAmount = healAmount;
+    }
     
-    public void SetWeaponFromRun(int damage, float speed, float cooldown, int maxAmmo)
+    public void EnableAdrenalineRush(float multiplier, float duration)
+    {
+        adrenalineRush = true;
+        adrenalineMultiplier = multiplier;
+        adrenalineDuration = duration;
+    }
+    
+    public void TriggerAdrenaline()
+    {
+        if (!adrenalineRush || adrenalineActive) return;
+        StartCoroutine(AdrenalineRoutine());
+    }
+    
+    IEnumerator AdrenalineRoutine()
+    {
+        adrenalineActive = true;
+        float originalCooldown = fireCooldown;
+        fireCooldown /= adrenalineMultiplier; // ยิงเร็วขึ้น
+        yield return new WaitForSeconds(adrenalineDuration);
+        fireCooldown = originalCooldown;
+        adrenalineActive = false;
+    }
+
+    /*public void EnableShockRound(float chance, float duration)
+    {
+        shockRound = true;
+        shockChance = chance;
+        shockDuration = duration;
+    }*/
+    
+    public void SetWeaponFromRun(int damage, float speed, float cooldown, int maxAmmo, float reloadTime)
     {
         bulletDamage = damage;
         bulletSpeed = speed;
         fireCooldown = cooldown;
         this.maxAmmo = maxAmmo;
+        this.reloadTime = reloadTime;
 
         // currentAmmo มีอยู่ในสคริปต์อยู่แล้ว
         currentAmmo = Mathf.Clamp(currentAmmo, 0, this.maxAmmo);

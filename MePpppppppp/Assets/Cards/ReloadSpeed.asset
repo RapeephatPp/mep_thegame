@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 851f97862ac43e8488554e891a4b93fa, type: 3}
-  m_Name: ExtraMaxHealth
+  m_Name: ReloadSpeed
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 804698027, guid: 05d90aadbef2e5f4dad11bfc831131bb, type: 3}
-  cardName: +Extra MaxHP
-  cardText: +100 Max Health
-  effectType: 1
-  effectValue: 100
-  isUnique: 1
-  unlockLevel: 5
+  cardImage: {fileID: 4846609784646523343, guid: 88ef83f94bb6d2240a7aad82237fd341, type: 3}
+  cardName: FastMagazine
+  cardText: Decrease Reload Speed
+  effectType: 9
+  effectValue: 0.3
+  isUnique: 0
+  unlockLevel: 2
