@@ -30,8 +30,8 @@ public class BulletController : MonoBehaviour
     
     private void Update()
     {
-        // เคลื่อนที่ตามทิศ moveDir ตรง ๆ
-        transform.position += (Vector3)(moveDir * speed * Time.deltaTime);
+        /*// เคลื่อนที่ตามทิศ moveDir ตรง ๆ
+        transform.position += (Vector3)(moveDir * speed * Time.deltaTime);*/
     }
     
     public static void AddLifetime(float amount)

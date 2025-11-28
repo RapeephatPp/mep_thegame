@@ -24,8 +24,12 @@ public class EnemyController : Character, IDamageable
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
-        playerTarget = GameObject.FindWithTag("Player").transform;
-        baseTarget = GameObject.FindWithTag("Base").transform;
+        
+        var playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null) playerTarget = playerObj.transform;
+
+        var baseObj = GameObject.FindWithTag("Base");
+        if (baseObj != null) baseTarget = baseObj.transform;
     }
 
     private void FixedUpdate()

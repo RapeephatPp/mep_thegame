@@ -61,6 +61,9 @@ public class WeaponSystem : MonoBehaviour
         nextFireTime = Time.time + fireCooldown;
         currentAmmo--;
         
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
+        
         // Screen Shake
         StartCoroutine(CameraShake.Instance.Shake(0.04f, 0.04f));
         
@@ -85,6 +88,11 @@ public class WeaponSystem : MonoBehaviour
         // Bullet
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         bullet.transform.right = direction.normalized;   // หันไปตามทิศยิง
+        var bc = bullet.GetComponent<BulletController>();
+        if (bc != null)
+        {
+            bc.Setup(direction, bulletSpeed, bulletDamage);
+        }
 
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction.normalized * bulletSpeed;

@@ -44,6 +44,9 @@ public class PlayerHealth : Character, IDamageable
         maxHealth += amount;
         currentHealth += amount;
         Debug.Log("MaxHealth Increased: " + maxHealth);
+        
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateHealthBar(currentHealth, maxHealth);
     }
     
     protected override void Start()

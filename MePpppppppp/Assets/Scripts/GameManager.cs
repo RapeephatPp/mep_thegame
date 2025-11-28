@@ -171,12 +171,16 @@ public class GameManager : MonoBehaviour
             SaveRunData();
 
             if (SceneFader.Instance != null)
+            {
                 SceneFader.Instance.FadeToScene(baseSceneName);
+            }
             else
-            
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.PlaySFX(openDoorClip, 0.95f, 1.05f);
+            {
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.PlaySFX(openDoorClip, 0.95f, 1.05f);
+                
                 SceneManager.LoadScene(baseSceneName);
+            }
         }
         else
         {

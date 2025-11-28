@@ -44,10 +44,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    /*private void Update()
     {
         UpdateHealthBar(PlayerHealth.Instance.CurrentHealth, PlayerHealth.Instance.MaxHealth);
-    }
+    }*/
 
     private void Awake()
     {
