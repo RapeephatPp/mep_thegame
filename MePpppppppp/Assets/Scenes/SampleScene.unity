@@ -337,6 +337,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b7fabb84e6a995d47ae4b89682a510f8, type: 2}
   - {fileID: 11400000, guid: 61ffe606963f98e4d88d8e046a27ed9d, type: 2}
   - {fileID: 11400000, guid: 19632aabc0391fa409f0bffee23c6158, type: 2}
+  - {fileID: 11400000, guid: d437d6ce62a42fc4eafe8fe14e2706fd, type: 2}
   cardSlot1: {fileID: 153035439}
   cardSlot2: {fileID: 448265929}
   cardSlot3: {fileID: 1074068075}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ExtraMaxHealth
   m_EditorClassIdentifier: 
   cardImage: {fileID: 804698027, guid: 05d90aadbef2e5f4dad11bfc831131bb, type: 3}
-  cardName: +Extra MaxHP
+  cardName: Super Tough
   cardText: +100 Max Health
   effectType: 1
   effectValue: 100

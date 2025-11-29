@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VampireShot
   m_EditorClassIdentifier: 
   cardImage: {fileID: 893060665667165445, guid: 88ef83f94bb6d2240a7aad82237fd341, type: 3}
-  cardName: Vampire Shot 1
+  cardName: Vampire Shot
   cardText: When kill enemies will heal player 3 HP.
   effectType: 10
   effectValue: 3

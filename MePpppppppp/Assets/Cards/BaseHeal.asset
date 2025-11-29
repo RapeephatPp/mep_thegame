@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BaseHeal
   m_EditorClassIdentifier: 
   cardImage: {fileID: -3048005803034922829, guid: d1708afb1bf1cb243b44321424a10d0b, type: 3}
-  cardName: Fixing it
+  cardName: House Fixing or something
   cardText: +500 Base Health
   effectType: 4
   effectValue: 500
   isUnique: 0
-  unlockLevel: 0
+  unlockLevel: 3
