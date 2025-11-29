@@ -3,12 +3,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEditor.Media;
 
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Panels")]
     [SerializeField] private CanvasGroup mainPanel;
     [SerializeField] private CanvasGroup optionsPanel;
+    [SerializeField] private CanvasGroup creditsPanel;
 
     [Header("Scene")]
     [SerializeField] private string gameSceneName = "SampleScene";
@@ -35,13 +37,21 @@ public class MainMenuManager : MonoBehaviour
         ShowPanel(mainPanel, true, instant:true);
         StartCoroutine(FadeIn(mainPanel, fadeTime));
         if (optionsPanel) ShowPanel(optionsPanel, false, instant:true);
+        if (creditsPanel) ShowPanel(creditsPanel, false, instant:true);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && optionsPanel && optionsPanel.gameObject.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OnBackFromOptions();
+            if (creditsPanel && creditsPanel.gameObject.activeSelf)
+            {
+                OnBackFromCredits();
+            }
+            else if (optionsPanel && optionsPanel.gameObject.activeSelf)
+            {
+                OnBackFromOptions();
+            }
         }
     }
 
@@ -72,6 +82,18 @@ public class MainMenuManager : MonoBehaviour
     {
         Play(clickClip);
         StartCoroutine(SwapPanels(optionsPanel, mainPanel));
+    }
+
+    public void OnopenCredits()
+    {
+        Play(clickClip);
+        StartCoroutine(SwapPanels(mainPanel, creditsPanel));
+    }
+
+    public void OnBackFromCredits()
+    {
+        Play(clickClip);
+        StartCoroutine(SwapPanels(creditsPanel, mainPanel));
     }
 
     public void OnQuit()
