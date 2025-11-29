@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851f97862ac43e8488554e891a4b93fa, type: 3}
   m_Name: BulletSpeed
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 3305532829244979730, guid: a274b88ee29031f458755fccb7d8528a, type: 3}
+  cardImage: {fileID: 7434448930770559455, guid: a924838474f98814eace85227504c431, type: 3}
   cardName: Shoot Faster
   cardText: +1 Bullet Speed
   effectType: 6

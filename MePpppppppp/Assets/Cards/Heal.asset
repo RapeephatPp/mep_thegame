@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851f97862ac43e8488554e891a4b93fa, type: 3}
   m_Name: Heal
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  cardImage: {fileID: 8275961384936863572, guid: a924838474f98814eace85227504c431, type: 3}
   cardName: Medkit
   cardText: +50 Health
   effectType: 3

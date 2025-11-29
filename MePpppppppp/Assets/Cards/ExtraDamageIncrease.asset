@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851f97862ac43e8488554e891a4b93fa, type: 3}
   m_Name: ExtraDamageIncrease
   m_EditorClassIdentifier: 
-  cardImage: {fileID: -8547511005710410278, guid: d508794cb8caf1d47835704bbd1b785a, type: 3}
+  cardImage: {fileID: 9149972344113658959, guid: a924838474f98814eace85227504c431, type: 3}
   cardName: Red Ammo
   cardText: '+45 Extra Damage '
   effectType: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851f97862ac43e8488554e891a4b93fa, type: 3}
   m_Name: ExtraMaxHealth
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 804698027, guid: 05d90aadbef2e5f4dad11bfc831131bb, type: 3}
+  cardImage: {fileID: -7403104582224857091, guid: a924838474f98814eace85227504c431, type: 3}
   cardName: Super Tough
   cardText: +100 Max Health
   effectType: 1
