@@ -1227,10 +1227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2031,7 +2031,7 @@ MonoBehaviour:
   uiAudio: {fileID: 251348883}
   hoverClip: {fileID: 8300000, guid: cc2f93b2e5bf1a9498aa2221fc32a132, type: 3}
   clickClip: {fileID: 8300000, guid: cc2f93b2e5bf1a9498aa2221fc32a132, type: 3}
-  fadeTime: 0.4
+  fadeTime: 0.5
 --- !u!4 &772916928
 Transform:
   m_ObjectHideFlags: 0
@@ -3320,10 +3320,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -4198,10 +4198,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2428148014570988598, guid: 4c60d2a92e1ba1e49b13dc3cb0a87e3a, type: 3}
-      propertyPath: m_ScreenMatchMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2428148014570988598, guid: 4c60d2a92e1ba1e49b13dc3cb0a87e3a, type: 3}
       propertyPath: m_ReferenceResolution.x
       value: 1920
       objectReference: {fileID: 0}
@@ -4209,17 +4205,9 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 1080
       objectReference: {fileID: 0}
-    - target: {fileID: 4324851273464419763, guid: 4c60d2a92e1ba1e49b13dc3cb0a87e3a, type: 3}
-      propertyPath: m_BlocksRaycasts
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5946883744688129604, guid: 4c60d2a92e1ba1e49b13dc3cb0a87e3a, type: 3}
       propertyPath: m_Name
       value: SceneFader
-      objectReference: {fileID: 0}
-    - target: {fileID: 5946883744688129604, guid: 4c60d2a92e1ba1e49b13dc3cb0a87e3a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
