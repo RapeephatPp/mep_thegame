@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-using UnityEditor.Media;
+
 
 public class MainMenuManager : MonoBehaviour
 {
