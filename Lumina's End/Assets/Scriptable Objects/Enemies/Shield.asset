@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa8f85b69bb53884ca24599cfd2faaca, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  enemyName: 
-  enemyType: 0
-  maxHp: 100
-  moveSpeed: 2
-  damage: 10
+  enemyName: Naloo
+  enemyType: 5
+  maxHp: 120
+  moveSpeed: 1.9
+  damage: 25
   attackRange: 1.5
   attackCooldown: 1
   explosionRadius: 3

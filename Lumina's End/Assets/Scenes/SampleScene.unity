@@ -4295,157 +4295,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSceneName: BaseScene
   baseCtrl: {fileID: 1092380607}
-  waves:
-  - waveName: 1
-    side: 0
-    enemyCount: 5
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 2
-    side: 0
-    enemyCount: 6
-    timeBetweenSpawns: 1.8
-    specificEnemies: []
-  - waveName: 3
-    side: 1
-    enemyCount: 8
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 4
-    side: 1
-    enemyCount: 10
-    timeBetweenSpawns: 1.5
-    specificEnemies: []
-  - waveName: 5
-    side: 2
-    enemyCount: 12
-    timeBetweenSpawns: 1.2
-    specificEnemies: []
-  - waveName: 6
-    side: 1
-    enemyCount: 10
-    timeBetweenSpawns: 1.5
-    specificEnemies: []
-  - waveName: 7
-    side: 2
-    enemyCount: 14
-    timeBetweenSpawns: 1.5
-    specificEnemies: []
-  - waveName: 8
-    side: 0
-    enemyCount: 16
-    timeBetweenSpawns: 1.2
-    specificEnemies: []
-  - waveName: 9
-    side: 2
-    enemyCount: 18
-    timeBetweenSpawns: 1
-    specificEnemies: []
-  - waveName: 10
-    side: 2
-    enemyCount: 22
-    timeBetweenSpawns: 0.9
-    specificEnemies: []
-  - waveName: 11
-    side: 2
-    enemyCount: 20
-    timeBetweenSpawns: 1
-    specificEnemies: []
-  - waveName: 12
-    side: 0
-    enemyCount: 22
-    timeBetweenSpawns: 0.8
-    specificEnemies: []
-  - waveName: 13
-    side: 1
-    enemyCount: 23
-    timeBetweenSpawns: 0.9
-    specificEnemies: []
-  - waveName: 14
-    side: 2
-    enemyCount: 28
-    timeBetweenSpawns: 0.8
-    specificEnemies: []
-  - waveName: 15
-    side: 2
-    enemyCount: 33
-    timeBetweenSpawns: 0.9
-    specificEnemies: []
-  - waveName: 16
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
-  - waveName: 6
-    side: 2
-    enemyCount: 15
-    timeBetweenSpawns: 2
-    specificEnemies: []
+  prefabNormal: {fileID: 4708424347522212785, guid: 0da361c7f480fdb40986be1870c959d9, type: 3}
+  prefabSpeed: {fileID: 3183284682389825428, guid: f82cbb6151d242a47bbb534805ddf8b0, type: 3}
+  prefabTank: {fileID: 445315188315048135, guid: d4dbccf931baa274bb4eb34fb66355a1, type: 3}
+  prefabFlying: {fileID: 5206223575871480730, guid: ca585b19c6c2f19439c838c8f5fd03f1, type: 3}
+  prefabBomber: {fileID: 8685264565428961261, guid: 37843ff2247d4724d8fea88b44be26e4, type: 3}
+  prefabShield: {fileID: 9155293134034742376, guid: 6ae25b3048abe9f4b8a5096264531d7a, type: 3}
+  waves: []
   enemyPrefab: {fileID: 4708424347522212785, guid: 0da361c7f480fdb40986be1870c959d9, type: 3}
   timeBetweenSpawns: 1.2
   baseEnemyCount: 5
@@ -7416,8 +7272,8 @@ Transform:
   m_GameObject: {fileID: 1092380603}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.458, z: 0}
-  m_LocalScale: {x: 1.0477, y: 2.854899, z: 4.1908}
+  m_LocalPosition: {x: 0, y: 1.3996, z: 0}
+  m_LocalScale: {x: 1.0477, y: 2.7382607, z: 4.1908}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

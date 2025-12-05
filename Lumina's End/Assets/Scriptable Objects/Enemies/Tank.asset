@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Tanker
   enemyType: 2
-  maxHp: 100
-  moveSpeed: 2
-  damage: 10
-  attackRange: 1.5
-  attackCooldown: 1
+  maxHp: 200
+  moveSpeed: 1.5
+  damage: 20
+  attackRange: 2
+  attackCooldown: 1.7
   explosionRadius: 3
   explosionDamage: 50
   explosionEffect: {fileID: 0}

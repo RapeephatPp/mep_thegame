@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa8f85b69bb53884ca24599cfd2faaca, type: 3}
   m_Name: Bomber
   m_EditorClassIdentifier: 
-  enemyName: 
-  enemyType: 0
-  maxHp: 100
-  moveSpeed: 2
-  damage: 10
+  enemyName: BlowUrMind
+  enemyType: 4
+  maxHp: 50
+  moveSpeed: 4
+  damage: 50
   attackRange: 1.5
   attackCooldown: 1
   explosionRadius: 3
