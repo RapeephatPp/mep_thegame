@@ -21,6 +21,7 @@ public class EnemyController : Character, IDamageable
     private Transform playerTarget;
     private Transform baseTarget;
     private float nextAttackTime;
+    private bool isKnockedBack = false;
 
     protected override void Start()
     {
@@ -35,7 +36,9 @@ public class EnemyController : Character, IDamageable
     }
 
     private void FixedUpdate()
-    {
+    {   
+        if (isKnockedBack) return;
+        
         Transform currentTarget = GetClosestTarget();
         if (currentTarget == null) return;
 
@@ -90,8 +93,29 @@ public class EnemyController : Character, IDamageable
         
         base.TakeDamage(damage);
     }
-
     
+    //Apply Knockback
+    public void ApplyKnockback(Vector2 force, float duration)
+    {
+        if (rb == null) return;
+
+        // หยุดเดินชั่วคราว
+        StopCoroutine("KnockbackRoutine"); // หยุด Coroutine เก่าถ้ามี
+        StartCoroutine(KnockbackRoutine(force, duration));
+    }
+    System.Collections.IEnumerator KnockbackRoutine(Vector2 force, float duration)
+    {
+        isKnockedBack = true;
+        
+        // Reset ความเร็วเดิมก่อน แล้วใส่แรงผลักทันที
+        rb.linearVelocity = Vector2.zero; 
+        rb.AddForce(force, ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(duration);
+
+        isKnockedBack = false;
+        // หลังจากนี้ FixedUpdate จะกลับมาทำงาน ให้มอนเดินต่อ
+    }
     
     protected override void Die()
     {   

@@ -5,6 +5,7 @@ public static class RunData
     public static bool HasData;
 
     public static int currentWave;
+    public static int currentWaveIndex;
 
     public static int playerCurrentHp;
     public static int playerMaxHp;
@@ -30,6 +31,7 @@ public static class RunData
     {
         HasData = false;
         currentWave = 0;
+        currentWaveIndex = 0;
         playerCurrentHp = playerMaxHp = 0;
         baseCurrentHp = baseMaxHp = 0;
         bulletDamage = 0;

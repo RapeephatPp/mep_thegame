@@ -1,8 +1,25 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum GameState { Running, Paused, CardSelection, GameOver }
+public enum SpawnSide { Left, Right, Both }
+
+[System.Serializable]
+public class WaveData
+{
+    [Header("Wave Settings")]
+    public string waveName;          // ตั้งชื่อกันลืม เช่น "Intro Left"
+    public SpawnSide side;           // มาทางไหน
+    public int enemyCount;           // กี่ตัว
+    public float timeBetweenSpawns = 1.0f; 
+    
+    [Header("Enemies")]
+    // ถ้ายังไม่มีมอนหลายแบบ ใช้แบบนี้ไปก่อนก็ได้ครับ
+    public GameObject[] specificEnemies; // ลาก Prefab มาใส่ตรงนี้เลยก็ได้
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -15,12 +32,19 @@ public class GameManager : MonoBehaviour
     [Header("Base Settings")]
     [SerializeField] private BaseController baseCtrl;
 
-    [Header("Wave System")]
+    [Header("Wave Configuration")]
+    [SerializeField] private List<WaveData> waves;
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private Transform spawnLeft;
-    [SerializeField] private Transform spawnRight;
     [SerializeField] private float timeBetweenSpawns = 1.2f;
     [SerializeField] private int baseEnemyCount = 5;
+    
+    [Header("Spawn Settings")]
+    [SerializeField] private Transform spawnLeft;
+    [SerializeField] private Transform spawnRight;
+    [SerializeField] private float warningDuration = 2.0f;
+    
+    [Header("Warning Settings")]
+    [SerializeField] private float warningTime = 1.5f;
     
     [Header("Audio")]
     [SerializeField] private AudioClip battleBGM;
@@ -37,12 +61,14 @@ public class GameManager : MonoBehaviour
 
     int currentWave = 0;
     public int CurrentWave => currentWave;
+    private int currentWaveIndex = 0;
     int aliveEnemies = 0;
     int enemiesToSpawn = 0;
 
     bool isSpawning = false;        // กำลังปล่อยมอนอยู่ไหม
     bool waitingForCard = false;    // กำลังรอให้ผู้เล่นเลือกการ์ดหรือไม่
     Coroutine waveRoutine;
+    
 
     void Awake() => Instance = this;
 
@@ -83,42 +109,96 @@ public class GameManager : MonoBehaviour
         waitingForCard = false;
         CurrentGameState = GameState.Running;
 
-        currentWave++;
-        enemiesToSpawn = baseEnemyCount + (currentWave - 1) * 2;
-
-        Debug.Log($"--- Wave {currentWave} ---");
-        
-        if (UIManager.Instance != null)
+        // เช็คว่ายังมีข้อมูลเวฟเหลือไหม
+        if (currentWaveIndex < waves.Count)
         {
-            UIManager.Instance.UpdateWave(currentWave);
-            UIManager.Instance.UpdateGameState("Running");
-        }
+            currentWave = currentWaveIndex + 1; // โชว์ใน UI (เริ่มที่ 1)
+            Debug.Log($"--- Starting Wave {currentWave}: {waves[currentWaveIndex].waveName} ---");
+            
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.UpdateWave(currentWave);
+                UIManager.Instance.UpdateGameState("Incoming!");
+            }
 
-        waveRoutine = StartCoroutine(SpawnWave());
+            waveRoutine = StartCoroutine(SpawnWave(waves[currentWaveIndex]));
+        }
+        else
+        {
+            Debug.Log("All waves cleared! You Win! (Or Loop)");
+            // จบเกม หรือ วนลูป (Endless Mode logic) ตรงนี้
+            // ตัวอย่าง: วนเวฟสุดท้ายแต่เพิ่มจำนวน
+            // ...
+        }
         
         if (AudioManager.Instance != null)
-            AudioManager.Instance.PlaySFX(waveStartClip, 0.95f, 1.05f);
+            AudioManager.Instance.PlaySFX(waveStartClip);
     }
 
-    IEnumerator SpawnWave()
+    IEnumerator SpawnWave(WaveData data)
     {
         isSpawning = true;
+        aliveEnemies = data.enemyCount; // นับจำนวนที่จะต้องฆ่าในเวฟนี้
 
-        for (int i = 0; i < enemiesToSpawn; i++)
+        // 1. แจ้งเตือน (Warning Phase)
+        ShowWarning(data.side);
+        yield return new WaitForSeconds(warningDuration);
+        
+        if (UIManager.Instance != null) UIManager.Instance.UpdateGameState("Battle!");
+
+        // 2. ปล่อยมอนสเตอร์ (Spawning Phase)
+        for (int i = 0; i < data.enemyCount; i++)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(timeBetweenSpawns);
+            SpawnEnemyBasedOnSide(data.side, data);
+            yield return new WaitForSeconds(data.timeBetweenSpawns);
         }
 
         isSpawning = false;
-        TryFinishWave(); // อาจจบได้เลยถ้าไม่มีศัตรูเหลือ
+        // ไม่ต้องเรียก TryFinishWave() ตรงนี้ รอ Enemy ตายค่อยเช็คเหมือนเดิม
     }
 
-    void SpawnEnemy()
+    // ฟังก์ชันช่วยเลือกจุดเกิด
+    void SpawnEnemyBasedOnSide(SpawnSide side, WaveData data)
     {
-        Transform p = (Random.value < 0.5f) ? spawnLeft : spawnRight;
-        Instantiate(enemyPrefab, p.position, Quaternion.identity);
+        Transform spawnPoint;
+
+        if (side == SpawnSide.Left)
+        {
+            spawnPoint = spawnLeft;
+        }
+        else if (side == SpawnSide.Right)
+        {
+            spawnPoint = spawnRight;
+        }
+        else // SpawnSide.Both
+        {
+            // สุ่มซ้ายขวา หรือจะทำแบบ Left->Right->Left ก็ได้
+            spawnPoint = (Random.value < 0.5f) ? spawnLeft : spawnRight;
+        }
+
+        // เลือก Prefab (ถ้าใน WaveData มีใส่ไว้ให้สุ่มจากในนั้น ถ้าไม่มีใช้ตัว Default)
+        GameObject prefabToSpawn = enemyPrefab; 
+        if (data.specificEnemies != null && data.specificEnemies.Length > 0)
+        {
+            prefabToSpawn = data.specificEnemies[Random.Range(0, data.specificEnemies.Length)];
+        }
+
+        Instantiate(prefabToSpawn, spawnPoint.position, Quaternion.identity);
+    }
+
+    void SpawnEnemy(bool isLeft)
+    {
+        Transform p = isLeft ? spawnLeft : spawnRight;
+        GameObject enemy = Instantiate(enemyPrefab, p.position, Quaternion.identity);
         aliveEnemies++;
+    }
+    
+    void ShowWarning(SpawnSide side)
+    {
+        if (UIManager.Instance == null) return;
+
+        // ส่ง enum ไปให้ UIManager จัดการ
+        UIManager.Instance.ShowWarning(side, warningDuration);
     }
 
     // เรียกจาก EnemyController.Die()
@@ -159,11 +239,11 @@ public class GameManager : MonoBehaviour
     // ถูกเรียกโดย CardManager หลังผู้เล่นกดเลือกการ์ดแล้ว
     public IEnumerator StartNextWaveAfterCard()
     {
-        // กันกดซ้ำหรือโดนเรียกซ้อน
-        if (!waitingForCard) yield break;
-
+        // ... (Logic เดิม) ...
         waitingForCard = false;
-        yield return new WaitForSeconds(0.2f); // กันเฟรมชน
+        yield return new WaitForSeconds(0.2f);
+
+        currentWaveIndex++; // ⭐ ขยับไปเวฟถัดไปใน List
 
         // ทุก ๆ 5 เวฟ เข้า BaseScene
         if (currentWave > 0 && currentWave % 5 == 0)
@@ -236,6 +316,7 @@ public class GameManager : MonoBehaviour
         RunData.HasData = true;
 
         RunData.currentWave = currentWave;
+        RunData.currentWaveIndex = currentWaveIndex;
 
         if (PlayerHealth.Instance != null)
         {
@@ -271,6 +352,7 @@ public class GameManager : MonoBehaviour
         if (!RunData.HasData) return;
 
         currentWave = RunData.currentWave;
+        currentWaveIndex = RunData.currentWaveIndex;
 
         if (PlayerHealth.Instance != null)
         {

@@ -254,6 +254,8 @@ MonoBehaviour:
   lifetime: 1
   damage: 25
   hitEffectPrefab: {fileID: 2580902599488880129, guid: 6bea34507c867e5479a2aef5fb0d50fc, type: 3}
+  knockbackForce: 2.5
+  knockbackDuration: 0.2
 --- !u!95 &-2361856245513586750
 Animator:
   serializedVersion: 7

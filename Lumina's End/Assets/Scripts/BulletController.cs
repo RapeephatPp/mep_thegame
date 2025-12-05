@@ -5,6 +5,10 @@ public class BulletController : MonoBehaviour
     [SerializeField] private float lifetime = 1f;
     [SerializeField] private float damage = 25f;
     public GameObject hitEffectPrefab;
+    
+    [Header("Knockback")]
+    [SerializeField] private float knockbackForce = 5f;
+    [SerializeField] private float knockbackDuration = 0.2f;
 
     public static float LifetimeMultiplier { get; private set; } = 1f;
 
@@ -51,6 +55,13 @@ public class BulletController : MonoBehaviour
             var dmg = col.GetComponent<IDamageable>();
             if (dmg != null)
                 dmg.TakeDamage(damage);
+            
+            var enemy = col.GetComponent<EnemyController>();
+            if (enemy != null)
+            {
+                // ทิศทางแรงผลัก = ทิศกระสุน (moveDir) * ความแรง
+                enemy.ApplyKnockback(moveDir * knockbackForce, knockbackDuration);
+            }
 
             if (hitEffectPrefab != null)
             {

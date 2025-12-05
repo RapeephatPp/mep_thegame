@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
@@ -11,6 +12,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private Image reloadBar;
+
+    [Header("Warning UI")] 
+    [SerializeField] private GameObject warningLeft;
+    [SerializeField] private GameObject warningRight;           
 
     [Header("Base UI")]
     [SerializeField] private Image baseHealthBar;
@@ -61,6 +66,49 @@ public class UIManager : MonoBehaviour
             deathPanel.SetActive(false);
         
     }
+    
+    //Warning UI
+    public void ShowWarning(SpawnSide side, float duration)
+    {
+        StopCoroutine("WarningRoutine");
+        StartCoroutine(WarningRoutine(side, duration));
+    }
+    
+    private IEnumerator WarningRoutine(SpawnSide side, float duration)
+    {
+        // เช็คว่าจะเปิดฝั่งไหนบ้าง
+        bool showLeft = (side == SpawnSide.Left || side == SpawnSide.Both);
+        bool showRight = (side == SpawnSide.Right || side == SpawnSide.Both);
+
+        // Reset state
+        if (warningLeft) warningLeft.SetActive(showLeft);
+        if (warningRight) warningRight.SetActive(showRight);
+
+        // ดึง CanvasGroup มาเตรียมไว้
+        CanvasGroup cgLeft = warningLeft?.GetComponent<CanvasGroup>();
+        if (cgLeft == null && warningLeft) cgLeft = warningLeft.AddComponent<CanvasGroup>();
+        
+        CanvasGroup cgRight = warningRight?.GetComponent<CanvasGroup>();
+        if (cgRight == null && warningRight) cgRight = warningRight.AddComponent<CanvasGroup>();
+
+        float timer = 0f;
+        float blinkSpeed = 10f;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float alpha = 0.2f + (0.8f * Mathf.Abs(Mathf.Sin(timer * blinkSpeed)));
+
+            if (showLeft && cgLeft) cgLeft.alpha = alpha;
+            if (showRight && cgRight) cgRight.alpha = alpha;
+
+            yield return null;
+        }
+
+        if (warningLeft) warningLeft.SetActive(false);
+        if (warningRight) warningRight.SetActive(false);
+    }
+    
     //Pause UI
     public void TogglePausePanel(bool show)
     {
