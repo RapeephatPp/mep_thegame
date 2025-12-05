@@ -21,6 +21,8 @@ public class WaveData
     public GameObject[] specificEnemies; // ลาก Prefab มาใส่ตรงนี้เลยก็ได้
 }
 
+
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -31,6 +33,14 @@ public class GameManager : MonoBehaviour
     
     [Header("Base Settings")]
     [SerializeField] private BaseController baseCtrl;
+    
+    [Header("Enemy Prefabs (For Generator)")]
+    public GameObject prefabNormal;
+    public GameObject prefabSpeed;
+    public GameObject prefabTank;
+    public GameObject prefabFlying;
+    public GameObject prefabBomber;
+    public GameObject prefabShield;
 
     [Header("Wave Configuration")]
     [SerializeField] private List<WaveData> waves;
@@ -69,13 +79,14 @@ public class GameManager : MonoBehaviour
     bool waitingForCard = false;    // กำลังรอให้ผู้เล่นเลือกการ์ดหรือไม่
     Coroutine waveRoutine;
     
-
     void Awake() => Instance = this;
 
     void Start()
     {   
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlayBGM(battleAmbience, true);
+        
+        GenerateWaves();
         
         if (RunData.HasData)
         {
@@ -441,4 +452,78 @@ public class GameManager : MonoBehaviour
         else
             SceneManager.LoadScene("MainMenu");
     }
+    
+    [ContextMenu("Generate 30 Waves (Mixed Enemies)")]
+    public void GenerateWaves()
+    {
+        waves = new List<WaveData>();
+
+        for (int i = 1; i <= 30; i++)
+        {
+            WaveData w = new WaveData();
+            w.waveName = "Wave " + i;
+
+            // --- 1. คำนวณจำนวนและ Spawn Rate ---
+            // จำนวนเริ่มที่ 5 ตัว เพิ่มขึ้นเรื่อยๆ
+            w.enemyCount = 5 + Mathf.RoundToInt(i * 1.5f);
+            
+            // ความเร็วในการออกมอน (ยิ่งเวฟสูง ยิ่งออกถี่)
+            // เวฟ 1 = 1.8วิ, เวฟ 30 = 0.4วิ
+            w.timeBetweenSpawns = Mathf.Clamp(1.8f - (i * 0.05f), 0.4f, 2.0f);
+
+            // --- 2. กำหนดทิศทาง (Side) ---
+            if (i % 5 == 0) 
+            {
+                w.side = SpawnSide.Both; // เวฟลงท้ายด้วย 5 (บอส/Swarm) มา 2 ทาง
+                w.enemyCount += 5;       // แถมจำนวนให้อีก
+            }
+            else
+            {
+                // สลับ ซ้าย -> ขวา -> สุ่ม
+                int sideRoll = i % 3;
+                if (sideRoll == 1) w.side = SpawnSide.Left;
+                else if (sideRoll == 2) w.side = SpawnSide.Right;
+                else w.side = SpawnSide.Both;
+            }
+
+            // --- 3. เลือกมอนสเตอร์ที่จะใส่ในเวฟนี้ (Enemy Mix) ---
+            List<GameObject> possibleEnemies = new List<GameObject>();
+
+            // Wave 1-5: พื้นฐาน (Normal, Speed)
+            if (prefabNormal) possibleEnemies.Add(prefabNormal);
+            if (i >= 3 && prefabSpeed) possibleEnemies.Add(prefabSpeed);
+
+            // Wave 6-10: เริ่มมีตัวกันและตัวบิน (Shield, Flying)
+            if (i >= 6 && prefabShield) possibleEnemies.Add(prefabShield);
+            if (i >= 8 && prefabFlying) possibleEnemies.Add(prefabFlying);
+
+            // Wave 11-15: ตัวถึกและตัวระเบิด (Tank, Bomber)
+            if (i >= 11 && prefabTank) possibleEnemies.Add(prefabTank);
+            if (i >= 13 && prefabBomber) possibleEnemies.Add(prefabBomber);
+
+            // Wave 20+: โอกาสเจอตัวโหดเยอะขึ้น (ใส่ Tank/Bomber เบิ้ลเข้าไปในสระสุ่ม)
+            if (i >= 20)
+            {
+                if (prefabTank) possibleEnemies.Add(prefabTank);
+                if (prefabBomber) possibleEnemies.Add(prefabBomber);
+                if (prefabSpeed) possibleEnemies.Add(prefabSpeed); // Speed เยอะๆ ก็น่ารำคาญช่วงหลัง
+            }
+
+            // แปลง List เป็น Array ใส่ใน WaveData
+            if (possibleEnemies.Count > 0)
+            {
+                w.specificEnemies = possibleEnemies.ToArray();
+            }
+            else
+            {
+                // กันเหนียว: ถ้าไม่ได้ใส่ Prefab อะไรมาเลย ให้ใช้ Normal หรือตัวเดิมที่มี
+                if (enemyPrefab) w.specificEnemies = new GameObject[] { enemyPrefab };
+            }
+
+            waves.Add(w);
+        }
+
+        Debug.Log($"Generated 30 Waves with {waves.Count} stages! Good luck!");
+    }
 }
+

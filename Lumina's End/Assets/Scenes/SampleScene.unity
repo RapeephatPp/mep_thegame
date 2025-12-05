@@ -4299,27 +4299,147 @@ MonoBehaviour:
   - waveName: 1
     side: 0
     enemyCount: 5
-    timeBetweenSpawns: 1
+    timeBetweenSpawns: 2
     specificEnemies: []
   - waveName: 2
-    side: 1
+    side: 0
     enemyCount: 6
-    timeBetweenSpawns: 1
+    timeBetweenSpawns: 1.8
     specificEnemies: []
   - waveName: 3
-    side: 0
-    enemyCount: 7
-    timeBetweenSpawns: 1
+    side: 1
+    enemyCount: 8
+    timeBetweenSpawns: 2
     specificEnemies: []
   - waveName: 4
     side: 1
-    enemyCount: 9
+    enemyCount: 10
     timeBetweenSpawns: 1.5
     specificEnemies: []
   - waveName: 5
     side: 2
     enemyCount: 12
+    timeBetweenSpawns: 1.2
+    specificEnemies: []
+  - waveName: 6
+    side: 1
+    enemyCount: 10
     timeBetweenSpawns: 1.5
+    specificEnemies: []
+  - waveName: 7
+    side: 2
+    enemyCount: 14
+    timeBetweenSpawns: 1.5
+    specificEnemies: []
+  - waveName: 8
+    side: 0
+    enemyCount: 16
+    timeBetweenSpawns: 1.2
+    specificEnemies: []
+  - waveName: 9
+    side: 2
+    enemyCount: 18
+    timeBetweenSpawns: 1
+    specificEnemies: []
+  - waveName: 10
+    side: 2
+    enemyCount: 22
+    timeBetweenSpawns: 0.9
+    specificEnemies: []
+  - waveName: 11
+    side: 2
+    enemyCount: 20
+    timeBetweenSpawns: 1
+    specificEnemies: []
+  - waveName: 12
+    side: 0
+    enemyCount: 22
+    timeBetweenSpawns: 0.8
+    specificEnemies: []
+  - waveName: 13
+    side: 1
+    enemyCount: 23
+    timeBetweenSpawns: 0.9
+    specificEnemies: []
+  - waveName: 14
+    side: 2
+    enemyCount: 28
+    timeBetweenSpawns: 0.8
+    specificEnemies: []
+  - waveName: 15
+    side: 2
+    enemyCount: 33
+    timeBetweenSpawns: 0.9
+    specificEnemies: []
+  - waveName: 16
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
+    specificEnemies: []
+  - waveName: 6
+    side: 2
+    enemyCount: 15
+    timeBetweenSpawns: 2
     specificEnemies: []
   - waveName: 6
     side: 2
