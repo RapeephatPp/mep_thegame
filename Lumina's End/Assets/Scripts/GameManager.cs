@@ -228,6 +228,9 @@ public class GameManager : MonoBehaviour
         waitingForCard = true;
         CurrentGameState = GameState.CardSelection;
         
+        if (TutorialManager.Instance != null)
+            TutorialManager.Instance.TriggerCardTutorial();
+        
         if (UIManager.Instance != null)
             UIManager.Instance.UpdateGameState("Card Selection");
 

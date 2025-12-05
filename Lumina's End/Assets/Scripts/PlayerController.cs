@@ -74,6 +74,11 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(move * moveSpeed, rb.linearVelocity.y);
         
+        if (Mathf.Abs(move) > 0.1f && TutorialManager.Instance != null)
+        {
+            TutorialManager.Instance.OnPlayerMove();
+        }
+        
         if (!canShoot && sr != null)
         {
             if (move > 0.01f)
@@ -107,6 +112,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             weapon.Fire(direction);
+            
+            // --- เพิ่มตรงนี้: บอก Tutorial ว่ายิงแล้ว ---
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.OnPlayerShoot();
+            }
+            // ----------------------------------------
+            
         }
     }
     

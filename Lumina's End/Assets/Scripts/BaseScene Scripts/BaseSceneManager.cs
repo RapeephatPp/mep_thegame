@@ -20,11 +20,19 @@ public class BaseSceneManager : MonoBehaviour
 
         SpawnPlayerAndApplyStats();
         
+        Invoke("CallBaseTutorial", 0.5f);
+        
         if (UIManager.Instance != null)
         {
             UIManager.Instance.UpdateGameState("Resting");
             UIManager.Instance.UpdateWave(RunData.currentWave);   // โชว์ wave เดิมที่เล่นอยู่
         }
+    }
+    
+    void CallBaseTutorial()
+    {
+        if (TutorialManager.Instance != null)
+            TutorialManager.Instance.TriggerBaseTutorial();
     }
 
     void SpawnPlayerAndApplyStats()

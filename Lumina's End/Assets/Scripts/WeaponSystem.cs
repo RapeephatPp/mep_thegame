@@ -70,7 +70,10 @@ public class WeaponSystem : MonoBehaviour
             return;
 
         if (currentAmmo <= 0)
-        {   
+        {
+            
+            if (TutorialManager.Instance != null)
+                TutorialManager.Instance.TriggerReloadTutorial();
             
             if (AudioManager.Instance != null)
                 AudioManager.Instance.PlaySFX(emptyClip, 0.9f, 1.1f);
@@ -141,6 +144,9 @@ public class WeaponSystem : MonoBehaviour
             
             yield return null;
         }
+        
+        if (TutorialManager.Instance != null)
+            TutorialManager.Instance.OnPlayerReload();
         
         currentAmmo = maxAmmo;
         isReloading = false;

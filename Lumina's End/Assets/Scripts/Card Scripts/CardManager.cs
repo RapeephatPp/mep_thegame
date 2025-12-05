@@ -127,6 +127,12 @@ public class CardManager : MonoBehaviour
     public void OnCardPicked()
     {
         HideCardSelection();
+        
+        if (TutorialManager.Instance != null)
+        {
+            TutorialManager.Instance.OnCardSelected();
+        }
+        
         // ไม่ต้องเปลี่ยน state เองที่นี่ ให้ GameManager เป็นคนเริ่มเวฟถัดไป
         StartCoroutine(GameManager.Instance.StartNextWaveAfterCard());
     }
