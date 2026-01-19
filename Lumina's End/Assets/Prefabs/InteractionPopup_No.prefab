@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8233062751670898991}
   - component: {fileID: 8726927215073098613}
   m_Layer: 5
-  m_Name: InteractionPopup_Quit
+  m_Name: InteractionPopup_No
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8726927215073098613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 4098854618923070816}
   - component: {fileID: 2068708824076862731}
   m_Layer: 5
-  m_Name: InteractionPopup_Quit
+  m_Name: InteractionPopup_No
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -46164911226060893, guid: ea2ba56e1c54bb54b98efa45b7d10816, type: 3}
+  m_Sprite: {fileID: -411673151740562271, guid: ea2ba56e1c54bb54b98efa45b7d10816, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

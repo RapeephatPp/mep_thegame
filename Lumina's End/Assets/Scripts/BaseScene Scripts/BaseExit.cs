@@ -9,66 +9,71 @@ public class BaseExit : MonoBehaviour
     [SerializeField] private AudioClip useDoorClip;
     
     [Header("UI Settings")]
-    [SerializeField] private GameObject interactUI; // ลากตัว UI ที่เป็นลูกของ HealZone มาใส่
-    [SerializeField] private Vector3 uiOffset = new Vector3(0, 2f, 0); // ความสูงที่จะให้ลอยเหนือหัว
-
-    private bool playerInZone;
+    [SerializeField] private GameObject interactUI; 
+    [SerializeField] private Vector3 uiOffset = new Vector3(0, 2f, 0);
     
-    private Transform targetPlayer; // ตัวแปรเก็บตำแหน่งผู้เล่น
-    private bool isPlayerInRange = false;
+    [Header("Floating Animation")] 
+    [SerializeField] private float floatSpeed = 4f;      
+    [SerializeField] private float floatStrength = 0.2f;
+
+    private Transform targetPlayer; // เก็บตำแหน่งผู้เล่น
+    private bool isPlayerInRange = false; 
     
     private void Start()
     {
-        // เริ่มเกมมาซ่อน UI ของตัวเองไว้ก่อน
         if (interactUI != null) interactUI.SetActive(false);
     }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
-        playerInZone = true;
-        
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            targetPlayer = other.transform; // จำไว้ว่าผู้เล่นคนไหนเดินเข้ามา
-
-            if (interactUI != null) interactUI.SetActive(true); // เปิด UI
+            targetPlayer = other.transform; 
+            if (interactUI != null) interactUI.SetActive(true); 
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
-        playerInZone = false;
-        
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            targetPlayer = null; // ลืมผู้เล่นคนนั้นซะ
-
-            if (interactUI != null) interactUI.SetActive(false); // ปิด UI
+            targetPlayer = null; 
+            if (interactUI != null) interactUI.SetActive(false); 
         }
     }
 
     private void Update()
-    {
-        if (!playerInZone) return;
+    {   
+        // ถ้าไม่อยู่ในระยะ ไม่ต้องทำอะไรเลย
+        if (!isPlayerInRange || targetPlayer == null) return;
+
+        // 1. จัดการตำแหน่ง UI (รวม Animation แล้ว)
+        UpdateUIPosition();
+        
         if (Input.GetKeyDown(useKey) && baseManager != null)
         {   
-            if (AudioManager.Instance != null && useDoorClip != null)
-                AudioManager.Instance.PlaySFX(useDoorClip);
-            
+            PlaySound();
             baseManager.ReturnToBattle();
         }
-
-        if (isPlayerInRange && targetPlayer != null)
+    }
+    
+    private void PlaySound()
+    {
+        if (AudioManager.Instance != null && useDoorClip != null)
+            AudioManager.Instance.PlaySFX(useDoorClip);
+    }
+    
+    private void UpdateUIPosition()
+    {
+        if (interactUI != null && targetPlayer != null)
         {
-            // 1. สั่งให้ UI กระโดดไปที่ตำแหน่งผู้เล่น + ความสูง
-            if (interactUI != null)
-            {
-                interactUI.transform.position = targetPlayer.position + uiOffset;
-            }
+            // คำนวณการเด้ง
+            float yBounce = Mathf.Sin(Time.time * floatSpeed) * floatStrength;
+
+            // set ตำแหน่งทีเดียวจบ (ผู้เล่น + offset + เด้ง)
+            interactUI.transform.position = targetPlayer.position + uiOffset + new Vector3(0, yBounce, 0);
         }
     }
 }

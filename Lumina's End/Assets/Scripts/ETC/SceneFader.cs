@@ -29,14 +29,12 @@ public class SceneFader : MonoBehaviour
 
     private void Start()
     {
-        // เริ่มด้วยเฟดเข้าจากดำ → ใส
         if (canvasGroup != null && canvasGroup.alpha > 0f)
         {
             StartCoroutine(Fade(1f, 0f, defaultDuration));
         }
     }
 
-    // เรียกจากที่อื่นเวลาจะเปลี่ยน scene
     public void FadeToScene(string sceneName, float duration = -1f)
     {
         if (isFading) return;
@@ -45,14 +43,38 @@ public class SceneFader : MonoBehaviour
         StartCoroutine(FadeToSceneRoutine(sceneName, duration));
     }
 
-    IEnumerator FadeToSceneRoutine(string sceneName, float duration)
+    // ---------------------------------------------------------
+    // [NEW] เพิ่มฟังก์ชันนี้สำหรับ Effect ตอนนอนพัก (หน้ามืด -> ทำคำสั่ง -> สว่าง)
+    // ---------------------------------------------------------
+    public void FadeAndExecute(System.Action midAction, float duration = 0.5f)
+    {
+        if (isFading) return;
+        StartCoroutine(FadeAndExecuteRoutine(midAction, duration));
+    }
+
+    IEnumerator FadeAndExecuteRoutine(System.Action midAction, float duration)
     {
         isFading = true;
 
-        // เฟดจอให้มืดก่อน
+        // 1. Fade มืด
         yield return Fade(0f, 1f, duration);
 
-        // โหลดฉาก
+        // 2. ทำคำสั่งที่ส่งมา (เช่น ฮีลเลือด) และรอแป๊บนึงให้คนเล่นรู้สึกว่าพักผ่อน
+        midAction?.Invoke();
+        yield return new WaitForSeconds(0.5f); 
+
+        // 3. Fade สว่าง
+        yield return Fade(1f, 0f, duration);
+
+        isFading = false;
+    }
+    // ---------------------------------------------------------
+
+    IEnumerator FadeToSceneRoutine(string sceneName, float duration)
+    {
+        isFading = true;
+        yield return Fade(0f, 1f, duration);
+
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
         op.allowSceneActivation = false;
 
@@ -60,11 +82,9 @@ public class SceneFader : MonoBehaviour
             yield return null;
 
         op.allowSceneActivation = true;
-        yield return null; // รอ 1 เฟรมให้ฉากใหม่เซ็ตตัว
+        yield return null;
 
-        // เฟดออกให้เห็นฉากใหม่
         yield return Fade(1f, 0f, duration);
-
         isFading = false;
     }
 
