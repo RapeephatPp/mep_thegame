@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: e5283c4800e38aa439e60dab511dd813
+guid: cf94e38a11c1eaa43a0153259292f5b6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3099130894102657051
-    second: Base_IronBarr_0
+      213: -404903010288495578
+    second: Mon_1_recolored_n_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
-    sRGBTexture: 1
+    enableMipMap: 1
+    sRGBTexture: 0
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -55,9 +55,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 1
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -113,45 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Base_IronBarr_0
+      name: Mon_1_recolored_n_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 135
-        width: 480
-        height: 26
+        y: 0
+        width: 512
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5e782982fdcadf4d0800000000000000
-      internalID: -3099130894102657051
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Base_IronBarr_1
-      rect:
-        serializedVersion: 2
-        x: 480
-        y: 99
-        width: 480
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a5c0afff278cbb5418db85914f2a4caa
-      internalID: -2001542887
+      spriteID: 624944f7bde716af0800000000000000
+      internalID: -404903010288495578
       vertices: []
       indices: 
       edges: []
@@ -160,20 +138,17 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f43ffbee194ce174cbe37381774f873f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 040daeaf0f1d75e4d888a69328712119, type: 3}
-      name: _NormalMap
+    secondaryTextures: []
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Base_IronBarr_0: -3099130894102657051
-      Base_IronBarr_1: -2001542887
+      Mon_1_recolored_n_0: -404903010288495578
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

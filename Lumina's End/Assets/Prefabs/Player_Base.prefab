@@ -317,6 +317,8 @@ MonoBehaviour:
   currentHealth: 0
   lastStandHpPercent: 0.3
   lastStandDamageMultiplier: 0.6
+  hurtClip: {fileID: 0}
+  deathClip: {fileID: 0}
 --- !u!95 &29300887953384036
 Animator:
   serializedVersion: 7

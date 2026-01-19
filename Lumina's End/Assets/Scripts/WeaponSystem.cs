@@ -89,7 +89,7 @@ public class WeaponSystem : MonoBehaviour
             UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
         
         // Screen Shake
-        StartCoroutine(CameraShake.Instance.Shake(0.04f, 0.04f));
+        /*StartCoroutine(CameraShake.Instance.Shake(0.04f, 0.04f));*/
         
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlaySFX(shootClip, 0.95f, 1.05f);
