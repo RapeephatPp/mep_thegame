@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class RunData
+public static class RunData 
 {
     public static bool HasData;
 

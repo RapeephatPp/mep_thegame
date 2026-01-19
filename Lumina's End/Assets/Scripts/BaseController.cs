@@ -61,5 +61,11 @@ public class BaseController : MonoBehaviour, IDamageable
             Debug.Log("Base destroyed! Game Over!");
             GameManager.Instance.OnBaseDestroyed();
         }
+        
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateBaseHealth(currentHealth, maxHealth); // อัปเดตหลอดเลือด
+            UIManager.Instance.ShakeBaseHealthBar(); // <--- สั่งสั่นตรงนี้!
+        }
     }
 }

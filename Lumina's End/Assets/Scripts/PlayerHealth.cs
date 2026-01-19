@@ -23,7 +23,7 @@ public class PlayerHealth : Character, IDamageable
 
     public override void TakeDamage(float damage)
     {
-        // เช็คเลือดก่อนโดนดาเมจ
+        // ... (Logic Last Stand เดิม) ...
         float hpRatio = (float)currentHealth / maxHealth;
         if (hpRatio <= lastStandHpPercent)
         {
@@ -38,10 +38,16 @@ public class PlayerHealth : Character, IDamageable
             WeaponSystem.Instance.TriggerAdrenaline();
         }
 
-        base.TakeDamage(damage);
+        base.TakeDamage(damage); // ตรงนี้เลือดลดแล้ว
+        
+        RunData.playerCurrentHp = currentHealth;
 
+        // [NEW] สั่งอัปเดต UI และสั่งสั่น!
         if (UIManager.Instance != null)
+        {
             UIManager.Instance.UpdateHealthBar(currentHealth, maxHealth);
+            UIManager.Instance.ShakeHealthBar(); // <--- เพิ่มบรรทัดนี้ครับ
+        }
     }
 
     public void AddMaxHealth(int amount)
