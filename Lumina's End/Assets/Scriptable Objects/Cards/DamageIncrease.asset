@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardImage: {fileID: -3303263899496568386, guid: a924838474f98814eace85227504c431, type: 3}
   cardName: Ammo Upgrade
-  cardText: +15 Damage
+  cardText: +5 Damage
   effectType: 0
-  effectValue: 15
+  effectValue: 5
   isUnique: 0
   unlockLevel: 0

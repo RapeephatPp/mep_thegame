@@ -16,6 +16,6 @@ MonoBehaviour:
   cardName: Fasterr
   cardText: +0.3% FireRate
   effectType: 2
-  effectValue: 0.03
+  effectValue: 0.02
   isUnique: 0
   unlockLevel: 0

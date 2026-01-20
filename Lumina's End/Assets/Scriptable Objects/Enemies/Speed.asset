@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHp: 50
   moveSpeed: 4
   damage: 10
-  attackRange: 1
+  attackRange: 1.5
   attackCooldown: 0.8
   explosionRadius: 3
   explosionDamage: 50

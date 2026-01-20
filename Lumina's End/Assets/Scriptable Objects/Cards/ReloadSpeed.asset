@@ -16,6 +16,6 @@ MonoBehaviour:
   cardName: FastMagazine
   cardText: Decrease Reload Speed
   effectType: 9
-  effectValue: 0.3
+  effectValue: 0.2
   isUnique: 0
   unlockLevel: 2
