@@ -98,7 +98,13 @@ public class UIManager : MonoBehaviour
         float elapsed = 0f;
 
         while (elapsed < duration)
-        {
+        {   
+            if (Time.timeScale == 0f)
+            {
+                target.anchoredPosition = originalPos; // คืนค่าเดิม
+                yield break; // จบการทำงานทันที
+            }
+            
             // สุ่มตำแหน่ง X, Y เล็กน้อย
             float x = UnityEngine.Random.Range(-1f, 1f) * magnitude;
             float y = UnityEngine.Random.Range(-1f, 1f) * magnitude;
@@ -164,7 +170,14 @@ public class UIManager : MonoBehaviour
         if (cgRight == null && warningRight) cgRight = warningRight.AddComponent<CanvasGroup>();
         float timer = 0f;
         while (timer < duration)
-        {
+        {   
+            if (Time.timeScale == 0f)
+            {
+                if (warningLeft) warningLeft.SetActive(false);
+                if (warningRight) warningRight.SetActive(false);
+                yield break; 
+            }
+            
             timer += Time.deltaTime;
             float alpha = 0.2f + (0.8f * Mathf.Abs(Mathf.Sin(timer * 10f)));
             if (showLeft && cgLeft) cgLeft.alpha = alpha;

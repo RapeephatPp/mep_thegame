@@ -201,11 +201,6 @@ public class EnemyController : Character, IDamageable
         if (AudioManager.Instance != null && deathClip != null)
             AudioManager.Instance.PlaySFX(deathClip, 0.95f, 1.05f);
         
-        if (enemyData.enemyType == EnemyType.Bomber)
-        {
-            Explode(); // ตายแล้วระเบิดด้วย (Death Rattle)
-        }
-
         if (WeaponSystem.Instance != null && WeaponSystem.Instance.HasVampireShot)
         {
             PlayerHealth.Instance.Heal(WeaponSystem.Instance.LifeStealAmount);

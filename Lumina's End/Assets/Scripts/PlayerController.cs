@@ -79,19 +79,19 @@ public class PlayerController : MonoBehaviour
             TutorialManager.Instance.OnPlayerMove();
         }
         
-        if (!canShoot && sr != null)
+        if (!canShoot)
         {
+            // ใช้การ Scale ติดลบเพื่อกลับด้านทั้ง Object
             if (move > 0.01f)
             {
-                sr.flipX = false;   // หันขวา
+                transform.localScale = new Vector3(1, 1, 1); // หันขวา (ปกติ)
             }
             else if (move < -0.01f)
             {
-                sr.flipX = true;    // หันซ้าย
+                transform.localScale = new Vector3(-1, 1, 1); // หันซ้าย (กลับด้าน)
             }
         }
     }
-
     
     private void HandleAimingAndShooting()
     {

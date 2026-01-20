@@ -6,7 +6,9 @@ public class BasePauseHandler : MonoBehaviour
     private bool isPaused = false;
 
     void Update()
-    {
+    {   
+        if (GameManager.Instance != null) return;
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = !isPaused;

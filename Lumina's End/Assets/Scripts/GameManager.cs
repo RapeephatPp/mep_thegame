@@ -79,10 +79,17 @@ public class GameManager : MonoBehaviour
     bool waitingForCard = false;    // กำลังรอให้ผู้เล่นเลือกการ์ดหรือไม่
     Coroutine waveRoutine;
     
-    void Awake() => Instance = this;
+    void Awake() 
+    {
+        Instance = this;
+        // เพิ่มบรรทัดนี้ครับ: บังคับเวลาให้เดินเสมอเมื่อ GameManager ตื่นขึ้นมา
+        Time.timeScale = 1f; 
+    }
 
     void Start()
     {   
+        Time.timeScale = 1f;
+        
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlayBGM(battleAmbience, true);
         
@@ -220,7 +227,9 @@ public class GameManager : MonoBehaviour
     }
 
     void TryFinishWave()
-    {
+    {   
+        bool isPlayerAlive = (PlayerHealth.Instance != null && PlayerHealth.Instance.CurrentHealth > 0);
+        
         // จบเวฟได้เมื่อ: ไม่ได้สปอว์นแล้ว และ ศัตรูเหลือ 0 และ เกมอยู่สถานะ Running
         if (!isSpawning && aliveEnemies <= 0 && CurrentGameState == GameState.Running && !waitingForCard)
         {
@@ -409,7 +418,12 @@ public class GameManager : MonoBehaviour
 
     // ---------- Game Over ----------
     public void OnPlayerDeath()
-    {
+    {   
+        if (CurrentGameState == GameState.CardSelection) 
+        {
+            CardManager.Instance.HideCardSelection(); // ปิดหน้าการ์ดก่อน
+        }
+        
         CurrentGameState = GameState.GameOver;
         Time.timeScale = 0f;
         
